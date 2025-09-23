@@ -1,31 +1,58 @@
 
 import './LoginForm.css'
-import beluga from '../assets/BelugaMeme.png'
+import './LoginFormBackground.css'
+import macLogo from '../assets/Mac_logo.jpg'
 import emailIcon from '../assets/mail.png'
+import passwordIcon from '../assets/contrasena.png'
 
 const LoginForm = () => {
 
 
     return(
     <main>
-        <section className="Titles">
-            <img src={beluga} alt='Logo Mac Computadoras' />
-            <h1>MAC Computadoras</h1>
-            <h1>Login</h1>
-        </section>
-        <section className="loginform">
-            <div class="group">
-                <input type="text" class="input" />
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Email</label>
+        <div className='background'>
+            <div className='circles'>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
-            <br />
-            <div>
-                <input type="password" name="" id="" />
-            </div>
-            <br />
-            <button type="button">Iniciar Sesión</button>
+        </div>
+        
+        <section className='LoginForms'>
+            <section className="Titles">
+                <img src={macLogo} alt='Logo Mac Computadoras' />
+                <h1>MAC Service Desk</h1>
+            </section>
+            <section className="loginform">
+
+                <div>
+                    <p>Email</p>
+                    <div className='loginGroup'>
+                        <img src={emailIcon} alt="Email Icon" />
+                        <div className='inputbox'>
+                            <input type="text" placeholder='Email' />
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <p>Password</p>
+                    <div className='groupPassword'>
+                        <img src={passwordIcon} alt="Email Icon" />
+                        <div className='inputbox'>
+                            <input type="password" placeholder='Password' />
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button">Iniciar Sesión</button>
+            </section>
         </section>
     </main>
     )
