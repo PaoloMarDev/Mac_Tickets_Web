@@ -1,8 +1,9 @@
+import { pool } from "../helpers/mysql-config.js";
 
 // Metodo para conseguir a todos los usuarios
 const getUsers = async (req, res) => {
     try{
-        const [rows] = await pool.query('SELECT ... FROM ...');
+        const [rows] = await pool.query('SELECT * FROM users');
         res.json(rows);
     } catch (error) {
         console.error('Error al obtener usuarios:', error);
@@ -13,35 +14,34 @@ const getUsers = async (req, res) => {
 const getUser = async (req, res) => {
     try{
         const { id } = req.params;
-        const [rows] = await pool.query('SELECT * FROM lugares WHERE id = ?', [id]);
+        const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
         if (rows.length === 0){
-            return res.status(404).json({ error: 'Lugar no encontrado'});      
+            return res.status(404).json({ error: 'usuario no encontrado'});      
         }
 
-        //Obtener comenarios del lugar
-        const [comentarios] = await pool.query('SELECT * FROM comentarios WHERE lugar_id = ? ORDER BY fecha DESC', [id]);
-
-        // Combinar comentarios del lugar
-        const lugar = rows[0];
-        lugar.comentarios = comentarios;
-        res.json(lugar);
+        const user = rows[0];
+        res.json(user);
     } catch(error) {
-        console.log('Error al obtener lugar por ID', error);
-        res.status(500).json({error: 'Error al obtener el lugar turístico' });
+        console.log('Error al obtener usuario por ID', error);
+        res.status(500).json({error: 'Error al obtener el usuario' });
     }
 }
+
 
 // Metodo eliminar usuario
 const deleteUser = async (req, res) => {
 
 }
+  
 
 // Metodo para crear usuario
 const insertUsers = async (req, res) => {
-
+    
 }
 
 // Metodo para modificar usuario
 const patchUser = async (req, res) => {
-
+    
 }
+
+export { getUser, getUsers, deleteUser, insertUsers, patchUser}

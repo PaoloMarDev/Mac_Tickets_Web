@@ -2,11 +2,11 @@ import express from "express";
 import cors from 'cors'
 import multer from "multer";
 import dotenv from 'dotenv'
+dotenv.config()
 
 
-
-import {routes as usuarios} from './routes/usuarios.js'
-import {routes as tickets} from './routes/tickets.js'
+import {router as usuarios} from './routes/usuarios.js'
+import {router as tickets} from './routes/tickets.js'
 
 const app = express();
 const PORT = 3000;
