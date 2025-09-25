@@ -29,19 +29,38 @@ const getUser = async (req, res) => {
 
 
 // Metodo eliminar usuario
-const deleteUser = async (req, res) => {
-
+const disableUser = async (req, res) => {
+    
 }
   
 
 // Metodo para crear usuario
 const insertUsers = async (req, res) => {
-    
-}
+    try{
+        const {email, password, role } = req.body;
+        if(!email || !password || !role){
+            return res.status(400).json({ error: "Faltan campos obligatorios"});
+        }
+
+        const [result] = await pool.query("INSERT INTO users (email, password, role) VALUES (?, SHA2(?, 224), ?)",
+            [email, password, role]
+        );
+        
+        res.status(201).json({
+            email,
+            password,
+            role
+        });
+
+    } catch(error){
+        console.error('Error al añadir usuario', error)
+        res.status(500).json({ error: 'Error al añadir el usuario'});
+    }
+};
 
 // Metodo para modificar usuario
 const patchUser = async (req, res) => {
     
 }
 
-export { getUser, getUsers, deleteUser, insertUsers, patchUser}
+export { getUser, getUsers, disableUser, insertUsers, patchUser}
