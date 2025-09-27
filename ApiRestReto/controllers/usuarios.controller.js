@@ -28,9 +28,24 @@ const getUser = async (req, res) => {
 }
 
 
-// Metodo eliminar usuario
+// Metodo desactivar usuario
 const disableUser = async (req, res) => {
-    
+    try{
+        const email = req.body.email
+        if(!email){
+            return res.status(400).json({error : "Falta el email"})
+        }
+
+        await pool.query("UPDATE users SET is_active = FALSE WHERE email = ?", [email]); 
+        
+        res.status(201).json({
+            exito: "Se logró la actualización de desabilitar cuenta"
+        })
+
+    } catch(error){
+        console.error('Error al desactivar usuario', error)
+        res.status(500).json({ error: 'Error al desactivar al usuario'});
+    }
 }
   
 
@@ -39,7 +54,7 @@ const insertUsers = async (req, res) => {
     try{
         const {email, password, role } = req.body;
         if(!email || !password || !role){
-            return res.status(400).json({ error: "Faltan campos obligatorios"});
+            return res.status(400).json({ error: "Faltan campos obligatorios, campos: email, password, role"});
         }
 
         const [result] = await pool.query("INSERT INTO users (email, password, role) VALUES (?, SHA2(?, 224), ?)",
@@ -47,9 +62,7 @@ const insertUsers = async (req, res) => {
         );
         
         res.status(201).json({
-            email,
-            password,
-            role
+            exito: "Se logró agregar al nuevo usuario"
         });
 
     } catch(error){
@@ -59,8 +72,24 @@ const insertUsers = async (req, res) => {
 };
 
 // Metodo para modificar usuario
-const patchUser = async (req, res) => {
-    
+const recoverUser = async (req, res) => {
+    try{
+        const {email, password} = req.body
+        
+        if(!email || !password){
+            return res.status(400).json({error : "Falta el email o el password nuevo"})
+        }
+
+        await pool.query("UPDATE users SET password = SHA2(?, 224) WHERE email = ?", [password, email]); 
+        
+        res.status(201).json({
+            exito: "Se logró la actualización de contrasena"
+        })
+
+    } catch(error){
+        console.error('Error al recuperar la contrasena usuario', error)
+        res.status(500).json({ error: 'Error al recuperar la contrasena'});
+    }
 }
 
-export { getUser, getUsers, disableUser, insertUsers, patchUser}
+export { getUser, getUsers, disableUser, insertUsers, recoverUser}
