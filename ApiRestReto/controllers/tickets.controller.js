@@ -27,19 +27,47 @@ const getTicket = async (req, res) => {
     }
 }
 
-// Metodo eliminar ticket
-const deleteTicket = async (req, res) => {
-    
+// Metodo desactivar un ticket
+const disableTicket = async (req, res) => {
+    try{
+        const id = req.body.id
+        if(!id){
+            return res.status(400).json({error : "Falta el id"})
+        }
+
+        await pool.query("UPDATE tickets SET is_active = FALSE WHERE id = ?", [id]); 
+        
+        res.status(201).json({
+            exito: "Se logró la actualización de desabilitar ticket"
+        })
+
+    } catch(error){
+        console.error('Error al desactivar ticket', error)
+        res.status(500).json({ error: 'Error al desactivar el ticket'});
+    }
 }
 
 // Metodo para crear usuario
 const insertTicket = async (req, res) => {
-    
+    try{
+        const {title, description, category, priority, status, created_by, assigned_to} = req.body;
+        if(!title || !description || !category || !priority || !status || !created_by || !assigned_to){
+            return res.status(400).json(
+                { error: "Faltan campos obligatorios, campos: title, description, category, priority, status, created_by, assigned_to"});
+        }
+
+        const [result] = await pool.query("INSERT INTO `tickets` (`title`, `description`, `category`, `priority`, `status`, `created_by`, `assigned_to`) VALUES (?,?,?,?,?,?,?)", 
+            [title, description, category, priority, status, created_by, assigned_to]);
+        
+        res.status(201).json({
+            exito: "Se logró agregar al nuevo ticket"
+        });
+
+    } catch(error){
+        console.error('Error al añadir ticket', error)
+        res.status(500).json({ error: 'Error al añadir el ticket'});
+    }
 }
 
-// Metodo para modificar usuario
-const patchTicket = async (req, res) => {
-    
-}
 
-export { getTicket, getTickets, deleteTicket, insertTicket, patchTicket}
+export { getTicket, getTickets, disableTicket, insertTicket, patchTicket}
