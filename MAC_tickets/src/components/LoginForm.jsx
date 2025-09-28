@@ -21,6 +21,12 @@ const LoginForm = () => {
                 <div></div>
                 <div></div>
                 <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
         </div>
         
@@ -28,6 +34,7 @@ const LoginForm = () => {
             <section className="Titles">
                 <img src={macLogo} alt='Logo Mac Computadoras' />
                 <h1>MAC Service Desk</h1>
+                <h2 className='subtitle'>Login</h2>
             </section>
             <section className="loginform">
 

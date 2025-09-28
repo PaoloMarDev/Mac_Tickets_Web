@@ -70,4 +70,4 @@ const insertTicket = async (req, res) => {
 }
 
 
-export { getTicket, getTickets, disableTicket, insertTicket, patchTicket}
+export { getTicket, getTickets, disableTicket, insertTicket}
