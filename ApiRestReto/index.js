@@ -7,6 +7,7 @@ dotenv.config()
 
 import {router as usuarios} from './routes/usuarios.js'
 import {router as tickets} from './routes/tickets.js'
+import {router as login} from './routes/login.js'
 
 const app = express();
 const PORT = 3000;
@@ -18,6 +19,8 @@ app.use(express.json());
 // Rutas
 app.use('/usuarios', usuarios)
 app.use('/tickets', tickets)
+app.use('/login', login);
+
 
 // Ruta de prueba
 
