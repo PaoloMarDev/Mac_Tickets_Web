@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 200px;
+  width: 100%;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  box-shadow: 0px 3px 10px rgb(152, 152, 152);
+  padding: 0 1rem;
+}
+
+/* Grupo izquierdo (logo + título) */
+.group1 {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-left: 5%;
+}
+
+h1 {
+  color: black;
+  filter: drop-shadow(0 0 0.9rem rgba(0, 0, 0, 0.5));
+  font-size: 2.5em;
+}
+
+h2 {
+  color: black;
+  filter: drop-shadow(0 0 0.9rem rgba(0, 0, 0, 0.5));
+  font-size: 1.5em;
+  padding-right: 5%;
+}
+
+.Header img {
+  width: 100px;
+  height: 100px;
+  filter: drop-shadow(0 0 0.9rem rgba(0, 0, 0, 0.5));
+}
+
+/* 🔹 RESPONSIVE STYLES */
+@media (max-width: 768px) {
+  .Header {
+    flex-direction: column; /* Pasa a vertical en pantallas pequeñas */
+    height: auto;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .group1 {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .Header img {
+    width: 70px;
+    height: 70px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+    padding-left: 0;
+  }
+
+  h2 {
+    font-size: 1.2em;
+    padding-left: 10%;
+  }
+}

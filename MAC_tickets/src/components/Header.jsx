@@ -1,14 +1,15 @@
 
-import './Header.css'
+import '../components_css/Header.css'
 import macLogo from '../assets/Mac_logo.jpg'
 
-const Header = (Title) => {
-
+const Header = (title) => {
     return(
         <section className='Header'>
-            <img src={macLogo} alt='Logo Mac Computadoras' />
-            <h1>Mac Computadoras</h1>
-            <h2>Vista Técnico</h2>
+            <div className='group1'>
+                <img src={macLogo} alt='Logo Mac Computadoras' />
+                <h1>Mac Computadoras</h1>
+            </div>
+            <h2>Vista {title.name}</h2>
         </section>
     )
 }

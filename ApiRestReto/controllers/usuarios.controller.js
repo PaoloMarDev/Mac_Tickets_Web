@@ -3,7 +3,7 @@ import { pool } from "../helpers/mysql-config.js";
 // Metodo para conseguir a todos los usuarios
 const getUsers = async (req, res) => {
     try{
-        const [rows] = await pool.query('SELECT * FROM users');
+        const [rows] = await pool.query('SELECT id, email, role, is_active, created_at FROM users');
         res.json(rows);
     } catch (error) {
         console.error('Error al obtener usuarios:', error);
@@ -14,7 +14,7 @@ const getUsers = async (req, res) => {
 const getUser = async (req, res) => {
     try{
         const { id } = req.params;
-        const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
+        const [rows] = await pool.query('SELECT id, email, role, is_active, created_at FROM users WHERE id = ?', [id]);
         if (rows.length === 0){
             return res.status(404).json({ error: 'usuario no encontrado'});      
         }

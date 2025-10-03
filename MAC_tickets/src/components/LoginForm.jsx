@@ -1,6 +1,6 @@
 
-import './LoginForm.css'
-import './LoginFormBackground.css'
+import '../components_css/LoginFormBackground.css'
+import '../components_css/LoginForm.css'
 import macLogo from '../assets/Mac_logo.jpg'
 import emailIcon from '../assets/mail.png'
 import passwordIcon from '../assets/contrasena.png'
