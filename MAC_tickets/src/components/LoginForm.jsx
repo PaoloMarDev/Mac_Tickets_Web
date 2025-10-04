@@ -36,8 +36,9 @@ const LoginForm = () => {
         const data = await response.json();
 
         // Manejo de la respuesta
-        if (response.ok && data.token) { // Mejor verificar response.ok para estados HTTP 2xx
+        if (response.ok && data.toke && data.id) { // Mejor verificar response.ok para estados HTTP 2xx
             localStorage.setItem('token', data.token);
+            localStorage.setItem('id', data.id);
             navigate('/inicio');
         } else {
             // Maneja errores de negocio (e.g., credenciales incorrectas)
