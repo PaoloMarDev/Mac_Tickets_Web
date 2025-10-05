@@ -76,11 +76,9 @@ const getTicketAcepted = async (req, res) => {
         const { id } = req.params;
         const [rows] = await pool.query(
             'SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = ? and acepted = 1;', [id]);
-        if (rows.length === 0){
-            return res.status(404).json({ error: 'tickets no encontrado'});      
-        }
-
+        
         res.json(rows);
+        
     } catch(error) {
         console.log('Error al obtener tickets por ID', error);
         res.status(500).json({error: 'Error al obtener el tickets' });
@@ -92,9 +90,6 @@ const getTicketNotAcepted = async (req, res) => {
     try{
         const { id } = req.params;
         const [rows] = await pool.query('SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = ? and acepted = 0;', [id]);
-        if (rows.length === 0){
-            return res.status(404).json({ error: 'tickets no encontrado'});      
-        }
 
         res.json(rows);
     } catch(error) {

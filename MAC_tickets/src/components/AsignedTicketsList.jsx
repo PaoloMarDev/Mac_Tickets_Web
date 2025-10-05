@@ -10,7 +10,6 @@ export default function TicketList() {
   const [hasError, setHasError] = useState(false);
 
   const userid = localStorage.getItem("id");
-  console.log(userid);
 
   useEffect(() => {
     // 1. Resetear estados al iniciar la carga
