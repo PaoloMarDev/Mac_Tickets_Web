@@ -9,11 +9,8 @@ import '../components_css/Tecnico.css'
 
 const Tecnico = ({ ticket, onClick }) => {
 
-      const role = "Técnico";
-
     return(
         <div>
-            <Header name={role} />
             <section className='TechnicalView'>
                 {/* SECCIÓN 1: TICKETS ACEPTADOS - IMPLEMENTADA */}
                 <div className='ViewSection AssignedTickets'>
@@ -43,7 +40,7 @@ const Tecnico = ({ ticket, onClick }) => {
                     </div>
                 </div>
             </section>
-            <Footer />
+            
         </div>
     )
 }

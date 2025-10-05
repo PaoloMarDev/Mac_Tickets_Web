@@ -14,12 +14,15 @@ const LoginForm = () => {
 const formulario = useRef(null)
 
      const navigate = useNavigate()
+     
      // Dentro de LoginForm.jsx
      const login = async (evt) => {
      evt.preventDefault();
+     
      // 1. Obtener los datos del formulario (Mejor usar un objeto JavaScript)
      const form = new FormData(formulario.current);
      const dataToSend = Object.fromEntries(form.entries()); // Convierte FormData a un objeto JS: { email: '...', password: '...' }
+     
      // 2. Realizar la petición fetch
      try {
          const response = await fetch('http://localhost:3000/login', {
@@ -35,6 +38,7 @@ const formulario = useRef(null)
          if (response.ok && data.token && data.id) { // Mejor verificar response.ok para estados HTTP 2xx
             localStorage.setItem('token', data.token);
             localStorage.setItem('id', data.id);
+            localStorage.setItem('role', data.role);
 
             navigate('/inicio');
          } else {

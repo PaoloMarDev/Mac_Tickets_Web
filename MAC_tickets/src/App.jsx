@@ -1,11 +1,8 @@
-import viteLogo from '/vite.svg'
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import LoginForm from './components/LoginForm.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
-import Tecnico from './components/Tecnico.jsx'
-
+import ScreeDisplayer from './components/ScreenDisplayer.jsx'
 
 
 function App() {
@@ -16,7 +13,7 @@ function App() {
         <Routes>
           <Route path='/' element={<LoginForm />} />
             <Route path='/inicio' element={<ProtectedRoute>
-                <Tecnico />
+                <ScreeDisplayer />
               </ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
