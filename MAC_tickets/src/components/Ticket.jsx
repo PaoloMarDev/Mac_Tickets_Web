@@ -3,7 +3,7 @@ import "../components_css/Ticket.css";
 
 const Ticket = ({ ticket, onClick }) => {
   return (
-     <div className="ticket-card" onClick={() => onClick(ticket.id)}>
+     <div className="ticket-card" onClick={() => onClick(ticket.Ticket_ID)}>
       {/* Barra lateral */}
       <div className="ticket-bar"></div>
 

@@ -26,18 +26,20 @@ const formulario = useRef(null)
              method: "POST",
              // IMPORTANTE: Especificar Content-Type y convertir el cuerpo a JSON
              headers: {
-                'Content-Type': 'application/json' 
+                'Content-Type': 'application/json'
              },
              body: JSON.stringify(dataToSend) // Envía el objeto JS como una cadena JSON
          });
          const data = await response.json();
          // Manejo de la respuesta
-         if (response.ok && data.token) { // Mejor verificar response.ok para estados HTTP 2xx
+         if (response.ok && data.token && data.id) { // Mejor verificar response.ok para estados HTTP 2xx
             localStorage.setItem('token', data.token);
+            localStorage.setItem('id', data.id);
+
             navigate('/inicio');
          } else {
             // Maneja errores de negocio (e.g., credenciales incorrectas)
-            const errorMessage = data.message || 'Error en el login. Inténtalo de nuevo.';
+            const errorMessage = 'Error en el login. Inténtalo de nuevo.';
             alert(errorMessage);
          }
      } catch (error) {

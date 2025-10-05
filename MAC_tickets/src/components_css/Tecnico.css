@@ -2,12 +2,92 @@
     margin: 0;
     padding: 0;
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
 }
 
 .TechnicalView{
     display: flex;
-    flex: 1;
+    flex-wrap: wrap;
     justify-content: space-around;
-    height: 100%;
-    width: 100%;
+    flex: 1;
+    min-height: calc(100vh - 120px); /* Altura completa entre Header y Footer */
+    padding: 20px;
+    gap: 20px; 
+    align-items: flex-start; 
+}
+
+/* Estilo para el header de cada sección (Título) */
+.SectionHeader {
+    margin-bottom: 10px;
+}
+
+.SectionHeader h2 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+/* Contenedor que permite el SCROLL VERTICAL */
+.ListContainer {
+    /* Definición de altura máxima para forzar el scroll */
+    max-height: calc(100vh - 250px); /* Ajuste basado en la altura del header/footer y títulos */
+    overflow-y: auto; /* Habilitar scroll vertical */
+    padding-right: 8px; /* Espacio para la barra de scroll */
+    margin-top: 5px;
+    height: 50vh;
+}
+
+.ViewSection.AssignedTickets .SectionHeader {
+    /* Línea azul debajo del título para la sección de tickets */
+    border-bottom: 3px solid #00ACC1;
+    padding-bottom: 15px;
+    position: relative;
+}
+
+
+
+/* --- RESPONSIVE: Tablet (dos columnas) --- */
+@media (max-width: 1024px) {
+    .TechnicalView {
+        justify-content: space-between;
+    }
+
+    .ViewSection {
+        /* Dos columnas por fila en tablets (aprox. 48% cada una) */
+        flex: 1 1 48%; 
+        max-width: 48%;
+    }
+    
+    /* Hacemos que la sección de Notificaciones ocupe el ancho completo abajo */
+    .ViewSection.Notifications {
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin-top: 20px;
+    }
+
+    .ListContainer {
+        max-height: 450px; /* Ajuste de altura para scroll en tablet */
+    }
+}
+
+/* --- RESPONSIVE: Móvil (una columna) --- */
+@media (max-width: 600px) {
+    .TechnicalView {
+        flex-direction: column; /* Apilar secciones */
+        padding: 10px;
+        gap: 20px;
+    }
+
+    .ViewSection {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .ListContainer {
+        max-height: 300px; /* Ajuste de altura para scroll en móvil */
+    }
+    
+    /* Ocultamos el dropdown de prioridad por simplicidad en móvil */
+    .PriorityDropdown {
+        display: none;
+    }
 }

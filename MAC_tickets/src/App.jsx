@@ -6,6 +6,8 @@ import LoginForm from './components/LoginForm.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Tecnico from './components/Tecnico.jsx'
 
+
+
 function App() {
 
 

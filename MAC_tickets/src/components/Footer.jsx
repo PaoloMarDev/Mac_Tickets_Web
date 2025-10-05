@@ -8,6 +8,8 @@ const Footer = () => {
     const [redirect, setRedirect] = useState(false)
 
     const logout = () => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('id')
         setRedirect(true)
     }
 
