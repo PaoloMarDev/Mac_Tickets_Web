@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Ticket from "../components/Ticket.jsx";
 
+
 export default function TicketList() {
   const [tickets, setTickets] = useState([]);
   // Estado para indicar si la carga ha finalizado (éxito o fallo)
