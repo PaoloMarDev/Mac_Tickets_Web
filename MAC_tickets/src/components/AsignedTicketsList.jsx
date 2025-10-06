@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Ticket from "../components/Ticket.jsx";
 
+import EnterTicketScreen from '../components/EnterTicketScreen.jsx'
+
 
 export default function TicketList() {
   const [tickets, setTickets] = useState([]);
@@ -9,6 +11,8 @@ export default function TicketList() {
   const [loadedTickets, setLoadedTickets] = useState(false);
   // Estado para manejar si hubo un error en la carga
   const [hasError, setHasError] = useState(false);
+
+  const [selectedTicket, setSelectedTicket] = useState(null); 
 
   const userid = localStorage.getItem("id");
 
@@ -39,10 +43,15 @@ export default function TicketList() {
       });
   }, [userid]); // Añadir userid como dependencia por si cambia
 
-  const handleClick = (id) => {
-    alert("Abrir ticket con ID: " + id);
-    // Aquí puedes navegar a otra vista o abrir modal de edición
-  };
+    const handleClick = (ticketData) => {
+     // ticketData ahora recibe el objeto del ticket
+     setSelectedTicket(ticketData); 
+   };
+
+   // Función para cerrar el modal
+   const handleCloseModal = () => {
+     setSelectedTicket(null);
+   };
 
   // --- Renderizado Condicional ---
   
@@ -73,12 +82,31 @@ export default function TicketList() {
       );
   }
 
-  // 4. Mostrar la lista de tickets
+// Mostrar la lista y el modal (si está abierto)
   return (
-    <div>
-      {tickets.map(ticket => (
-        <Ticket key={ticket.Ticket_ID} ticket={ticket} onClick={handleClick} />
-      ))}
-    </div>
+     <div className="ticket-list-container">
+    
+       {/* 1. Lista de Tickets: CORRECCIÓN APLICADA AQUÍ */}
+        {tickets.map(ticket => (
+         <Ticket 
+           key={ticket.Ticket_ID} 
+           ticket={ticket} 
+           // Esto asegura que el objeto 'ticket' se pase a handleClick
+           onClick={() => handleClick(ticket)} 
+         />
+       ))}
+
+       {/* 2. Modal Condicional */}
+       {selectedTicket && (
+         <div className="modal-overlay" onClick={handleCloseModal}>
+           <div className="modal-content" onClick={e => e.stopPropagation()}>
+             <EnterTicketScreen 
+               ticket={selectedTicket} 
+               onExit={handleCloseModal}
+             />
+           </div>
+         </div>
+       )}
+     </div>
   );
 }

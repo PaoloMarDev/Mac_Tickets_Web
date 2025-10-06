@@ -68,7 +68,7 @@ export default function TicketList() {
          <Ticket 
            key={ticket.Ticket_ID} 
            ticket={ticket} 
-           // 🔑 Esto asegura que el objeto 'ticket' se pase a handleClick
+           // Esto asegura que el objeto 'ticket' se pase a handleClick
            onClick={() => handleClick(ticket)} 
          />
        ))}

@@ -1,13 +1,13 @@
 
 import '../components_css/EnterTicketScreen.css'
 
-function EnterTicketScreen() { // Renamed for clarity (Read-Only View)
+function EnterTicketScreen({ ticket, onExit }) { // Renamed for clarity (Read-Only View)
   // ... state and props
   
   return (
 <div className="ticket-container">
       <header className="ticket-header">
-        <h1>Título Ticket</h1>
+        <h1>{ticket.title}</h1>
         <p className="technician-name">Nombre Técnico</p>
       </header>
       
@@ -15,26 +15,29 @@ function EnterTicketScreen() { // Renamed for clarity (Read-Only View)
         <div className="priority-select">
           {/* Placeholder for a checkbox/radio or custom selector */}
           <span className="placeholder-box"></span>
-          <label>Prioridad - Alto/Medio/Bajo</label>
+          <label>Prioridad - {ticket.priority}</label>
         </div>
         <div className="category-select">
           {/* Placeholder for a checkbox/radio or custom selector */}
           <span className="placeholder-box"></span>
-          <label>Categoría - Lorem ipsum</label>
+          <label>Categoría - {ticket.category}</label>
         </div>
       </div>
       <div className="description-section">
         <h2 className="description-title">Description</h2>
         <p className="description-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          {ticket.description}
         </p>
         <div className="content-spacer"></div> 
       </div>
       
-      {/* 🚨 THE ONLY CHANGE IS HERE 🚨 */}
       <footer className="ticket-actions">
-        <button className="btn exit-btn">Salir</button>
-        <button className="btn edit-btn">Editar</button>
+        <button className="btn exit-btn" type="button" onClick={() => {
+          onExit()
+        }}>Salir</button>
+        <button className="btn edit-btn" type='button' onClick={() => {
+          alert("Este boton aún no tiene funcionamiento")
+        }}>Editar</button>
       </footer>
     </div>
   );
