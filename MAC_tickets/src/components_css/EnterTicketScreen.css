@@ -1,0 +1,89 @@
+/* General Styling */
+body {
+  background-color: #f0f2f5; /* Light page background */
+  font-family: Arial, sans-serif;
+}
+
+/* 1. Main Card Container */
+.ticket-container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 15px;
+}
+
+/* 2. Metadata Section */
+.ticket-header h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.technician-name {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.metadata-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #cfcfcf; /* The subtle separator line */
+}
+
+.priority-select, .category-select {
+  display: flex;
+  align-items: center;
+  margin-right: 40px;
+  font-size: 14px;
+  color: #333;
+}
+
+.placeholder-box {
+  width: 15px;
+  height: 15px;
+  background-color: #dcdcdc; /* Gray box color */
+  margin-right: 8px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* 3. Description */
+.description-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description-text {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 100px; /* Space for the large blank area */
+}
+/* 4. Footer and Buttons (Updated) */
+.ticket-actions {
+  display: flex;
+  /* This ensures 'Salir' is left and 'Editar' is right, filling the space */
+  justify-content: space-between; 
+  align-items: center;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+/* No need for a .right-btns wrapper anymore since there's only one button on the right. */
+
+.btn {
+  /* Common styling for Salir and Editar */
+  padding: 12px 35px;
+  border: none;
+  border-radius: 5px;
+  background-color: #e0e0e0;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

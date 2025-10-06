@@ -1,73 +1,89 @@
 import React, { useEffect, useState } from "react";
 import Ticket from "../components/Ticket.jsx";
+import AceptarTicketScreen from "./AceptarTicketScreen.jsx";
+
 
 export default function TicketList() {
-  const [tickets, setTickets] = useState([]);
-  // 1. Estado para saber si la carga ya finalizó
-  const [loadedTickets, setLoadedTickets] = useState(false);
-  // 2. Estado para manejar si hubo un error en el fetch
-  const [hasError, setHasError] = useState(false);
-
-  const userid = localStorage.getItem("id");
-
-  useEffect(() => {
-    // Resetear estados al iniciar la carga
-    setLoadedTickets(false);
-    setHasError(false);
-
-    fetch(`http://localhost:3000/tickets/nonAceptedTickets/${userid}`)
-      .then(res => {
-        if (!res.ok) {
-          // Si la respuesta HTTP no es 2xx, lanzar un error
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then(data => {
-        // Éxito: Establecer los tickets y marcar como cargado
-        setTickets(data);
-        setLoadedTickets(true);
-      })
-      .catch(error => {
-        // Fallo: Registrar el error y marcar que hubo un error
-        console.error("Fetch failed:", error);
-        setHasError(true);
-        setLoadedTickets(true); // La carga ha finalizado, aunque con error
-      });
-  }, [userid]); // Añadir userid como dependencia
-
-  const handleClick = (id) => {
-    alert("Abrir ticket con ID: " + id);
-    // Aquí puedes navegar a otra vista o abrir modal de edición
-  };
-
-  // --- Renderizado Condicional ---
+   const [tickets, setTickets] = useState([]);
+   const [loadedTickets, setLoadedTickets] = useState(false);
+   const [hasError, setHasError] = useState(false);
   
-  // Mostrar mensaje de "Cargando..." mientras se obtienen los datos
-  if (!loadedTickets) {
-      return (
-          <div className="loading-state">
-              <p>Cargando tickets...</p>
-          </div>
-      );
-  }
+   const [selectedTicket, setSelectedTicket] = useState(null); 
 
-  // Mostrar "Sin tickets" si hubo un error O si la lista está vacía
-  if (hasError || tickets.length === 0) {
-    return (
-      <div className="empty-state">
-        {/* Si hubo un error, muestra un mensaje de error, sino, muestra "Sin tickets" */}
-        <p>{hasError ? "No se pudieron cargar los tickets." : "Sin tickets"}</p>
-      </div>
-    );
-  }
+   const userid = localStorage.getItem("id");
 
-  // Mostrar la lista de tickets
+   useEffect(() => {
+     // ... (Lógica de fetch, sin cambios)
+     setLoadedTickets(false);
+     setHasError(false);
+
+       fetch(`http://localhost:3000/tickets/nonAceptedTickets/${userid}`)
+       .then(res => {
+         if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+         }
+         return res.json();
+       })
+       .then(data => {
+         setTickets(data);
+         setLoadedTickets(true);
+       })
+       .catch(error => {
+         console.error("Fetch failed:", error);
+         setHasError(true);
+         setLoadedTickets(true);
+       });
+   }, [userid]); 
+
+   const handleClick = (ticketData) => {
+     // ticketData ahora recibe el objeto del ticket
+     setSelectedTicket(ticketData); 
+   };
+
+   // Función para cerrar el modal
+   const handleCloseModal = () => {
+     setSelectedTicket(null);
+   };
+
+
+   // --- Renderizado Condicional de Estados de Carga/Error ---
+   if (!loadedTickets) {
+     return <div className="loading-state"><p>Cargando tickets...</p></div>;
+   }
+
+   if (hasError || tickets.length === 0) {
+     return (
+       <div className="empty-state">
+         <p>{hasError ? "No se pudieron cargar los tickets." : "Sin tickets"}</p>
+       </div>
+     );
+   }
+
+// Mostrar la lista y el modal (si está abierto)
   return (
-    <div>
-      {tickets.map(ticket => (
-        <Ticket key={ticket.Ticket_ID} ticket={ticket} onClick={handleClick} />
-      ))}
-    </div>
+     <div className="ticket-list-container">
+    
+       {/* 1. Lista de Tickets: CORRECCIÓN APLICADA AQUÍ */}
+        {tickets.map(ticket => (
+         <Ticket 
+           key={ticket.Ticket_ID} 
+           ticket={ticket} 
+           // 🔑 Esto asegura que el objeto 'ticket' se pase a handleClick
+           onClick={() => handleClick(ticket)} 
+         />
+       ))}
+
+       {/* 2. Modal Condicional */}
+       {selectedTicket && (
+         <div className="modal-overlay" onClick={handleCloseModal}>
+           <div className="modal-content" onClick={e => e.stopPropagation()}>
+             <AceptarTicketScreen 
+               ticket={selectedTicket} 
+               onExit={handleCloseModal}
+             />
+           </div>
+         </div>
+       )}
+     </div>
   );
 }

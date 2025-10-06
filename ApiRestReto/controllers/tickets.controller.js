@@ -71,7 +71,7 @@ const insertTicket = async (req, res) => {
 
 
 // Metodo para conseguir un ticket
-const getTicketAcepted = async (req, res) => {
+const getTicketsAcepted = async (req, res) => {
     try{
         const { id } = req.params;
         const [rows] = await pool.query(
@@ -86,7 +86,7 @@ const getTicketAcepted = async (req, res) => {
 }
 
 // Metodo para conseguir un ticket
-const getTicketNotAcepted = async (req, res) => {
+const getTicketsNotAcepted = async (req, res) => {
     try{
         const { id } = req.params;
         const [rows] = await pool.query('SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = ? and acepted = 0;', [id]);
@@ -98,4 +98,54 @@ const getTicketNotAcepted = async (req, res) => {
     }
 }
 
-export { getTicket, getTickets, disableTicket, insertTicket, getTicketAcepted, getTicketNotAcepted}
+
+// Metodo desactivar un ticket
+const aceptarTicket = async (req, res) => {
+    try{
+        const id = req.body.id
+        if(!id){
+            return res.status(400).json({error : "Falta el id"})
+        }
+
+        await pool.query("UPDATE tickets SET acepted = TRUE WHERE id = ?", [id]); 
+        
+        res.status(201).json({
+            exito: "Se logró la actualización de aceptar ticket"
+        })
+
+    } catch(error){
+        console.error('Error al desactivar ticket', error)
+        res.status(500).json({ error: 'Error al desactivar el ticket'});
+    }
+}
+
+// Metodo desactivar un ticket
+const rechazarTicket = async (req, res) => {
+    try{
+        const id = req.body.id
+        if(!id){
+            return res.status(400).json({error : "Falta el id"})
+        }
+
+        await pool.query("UPDATE tickets SET assigned_to = NULL WHERE id = ?", [id]); 
+        
+        res.status(201).json({
+            exito: "Se logró el rechazo del ticket"
+        })
+
+    } catch(error){
+        console.error('Error al desactivar ticket', error)
+        res.status(500).json({ error: 'Error al desactivar el ticket'});
+    }
+}
+
+
+
+export { getTicket, 
+         getTickets, 
+         disableTicket, 
+         insertTicket, 
+         getTicketsAcepted, 
+         getTicketsNotAcepted,
+         aceptarTicket,
+         rechazarTicket}
