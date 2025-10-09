@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from "react";
-import Ticket from "../components/Ticket.jsx";
+import { useEffect, useState } from "react";
 
-import EnterTicketScreen from '../components/EnterTicketScreen.jsx'
+import Usuario from './Usuario.jsx'
 
 
-export default function TicketList() {
-  const [tickets, setTickets] = useState([]); // Estado que guarda todos los tickets obtenidos de la API
-  const [loadedTickets, setLoadedTickets] = useState(false); // Estado para indicar si la carga ha finalizado (éxito o fallo)
+const AllUsersList = () => {
+    const [usuarios, setUsuarios] = useState([]); // Estado que guarda todos los tickets obtenidos de la API
+  const [loadedUsers, setLoadedUser] = useState(false); // Estado para indicar si la carga ha finalizado (éxito o fallo)
   const [hasError, setHasError] = useState(false); // Estado para manejar si hubo un error en la carga
-  const [selectedTicket, setSelectedTicket] = useState(null); 
+  const [selectedTicket, setSelectedUser] = useState(null); 
 
   const userid = localStorage.getItem("id"); // Obtenemos el id del usuario que está guardado en el localstorage
 
   useEffect(() => {
     // 1. Resetear estados al iniciar la carga
-    setLoadedTickets(false);
+    setLoadedUser(false);
     setHasError(false);
 
     // 2. Usar la cadena de promesas de fetch para manejar errores
-    fetch(`http://localhost:3000/tickets/aceptedTickets/${userid}`, {
+    fetch(`http://localhost:3000/usuarios`, {
         method: 'GET',
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`
@@ -33,26 +32,26 @@ export default function TicketList() {
       })
       .then(data => {
         // 3. Éxito: Establecer los tickets y marcar como cargado
-        setTickets(data);
-        setLoadedTickets(true);
+        setUsuarios(data);
+        setLoadedUser(true);
       })
       .catch(error => {
         // 4. Fallo: Registrar el error y marcar que hubo un error
         console.error("Fetch failed:", error);
         setHasError(true);
-        setLoadedTickets(true); // La carga ha finalizado, aunque con error
+        setLoadedUser(true); // La carga ha finalizado, aunque con error
       });
   }, [userid]); // Añadir userid como dependencia por si cambia
 
-    const handleClick = (ticketData) => {
+    const handleClick = (userData) => {
      // ticketData ahora recibe el objeto del ticket
-     setSelectedTicket(ticketData); 
-     console.log(ticketData)
+     setSelectedUser(userData); 
+     console.log(userData)
    };
 
    // Función para cerrar el modal
    const handleCloseModal = () => {
-     setSelectedTicket(null);
+     setSelectedUser(null);
    };
 
   // --- Renderizado Condicional ---
@@ -63,7 +62,7 @@ export default function TicketList() {
   if (hasError) {
     return (
       <div className="error-message">
-        <p>No se pudieron cargar los tickets. Por favor, inténtalo de nuevo más tarde.</p>
+        <p>No se pudieron cargar los usuarios. Por favor, inténtalo de nuevo más tarde.</p>
       </div>
     );
   }
@@ -71,10 +70,10 @@ export default function TicketList() {
 
 
   // 2. Mostrar "Sin tickets" si ya cargó y la lista está vacía
-  if (loadedTickets && tickets.length === 0) {
+  if (loadedUsers && usuarios.length === 0) {
     return (
       <div className="empty-state">
-        <p>Sin tickets</p>
+        <p>Sin usuarios</p>
       </div>
     );
   }
@@ -82,10 +81,10 @@ export default function TicketList() {
 
 
   // 3. (Opcional) Mostrar un mensaje de carga mientras se obtienen los datos
-  if (!loadedTickets) {
+  if (!loadedUsers) {
       return (
           <div className="loading-state">
-              <p>Cargando tickets...</p>
+              <p>Cargando usuarios...</p>
           </div>
       );
   }
@@ -95,26 +94,16 @@ export default function TicketList() {
 // Mostrar la lista y el modal (si está abierto)
   return (
      <div className="ticket-list-container">
-        {tickets.map(ticket => (
-         <Ticket 
-           key={ticket.Ticket_ID} 
-           ticket={ticket} 
+        {usuarios.map(usuario => (
+         <Usuario 
+           key={usuario.id} 
+           user={usuario} 
            // Esto asegura que el objeto 'ticket' se pase a handleClick
-           onClick={() => handleClick(ticket)} 
+           onClick={() => handleClick(usuario)} 
          />
        ))}
-
-       {/* 2. Modal Condicional */}
-       {selectedTicket && (
-         <div className="modal-overlay" onClick={handleCloseModal}>
-           <div className="modal-content" onClick={e => e.stopPropagation()}>
-             <EnterTicketScreen 
-               ticket={selectedTicket} 
-               onExit={handleCloseModal}
-             />
-           </div>
-         </div>
-       )}
      </div>
   );
 }
+
+export default AllUsersList

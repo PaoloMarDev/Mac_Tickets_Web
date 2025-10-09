@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react"
+
 import Tecnico from "./Tecnico"
+import Administrador from "./Administrador"
+
+
 
 import Footer from '../components/Footer.jsx'
 import Header from '../components/Header.jsx'
@@ -15,7 +19,7 @@ const ScreenDisplayer = () =>{
     if(accountRole == "TECNICO"){
         return(
             <div>
-                <Header name={accountRole}/>
+                <Header name={"Ténico"}/>
                 <Tecnico />
                 <Footer />
             </div> 
@@ -24,7 +28,7 @@ const ScreenDisplayer = () =>{
     if(accountRole == "MESA"){
         return(
             <div>
-                <Header name={accountRole}/>
+                <Header name={"Mesa De Trabajo"}/>
                 <h1>No hay vista de Mesa</h1>
                 <Footer />
             </div> 
@@ -33,8 +37,8 @@ const ScreenDisplayer = () =>{
     if(accountRole == "ADMIN"){
         return(
             <div>
-                <Header name={accountRole}/>
-                <h1>No hay vista de Administrador</h1>            
+                <Header name={"Administrador"}/>
+                <Administrador />
                 <Footer />
             </div> 
         )

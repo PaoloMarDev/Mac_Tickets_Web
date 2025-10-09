@@ -1,19 +1,27 @@
 
+import { useEffect, useState } from 'react'
 import AsignedTicketList from '../components/AsignedTicketsList.jsx'
 import NotAsignedTicketsList from '../components/NotAsignedTicketsList.jsx'
 
 import '../components_css/Tecnico.css'
 
-const Tecnico = ({ ticket, onClick }) => {
+const Tecnico = () => {
 
+
+    
     return(
             <section className='TechnicalView'>
                 <div className='vertical-line'></div>
                 <div className='ViewSection AssignedTickets'>
                     <div className="SectionHeader">
                         <h2>Tickets Aceptados</h2>
-                        {/* Simulación de Filtros */}
+                        <div className='filtros'>
+                            <button>Categoria</button>
+                            <button>Prioridad</button>
+                            <button>Fecha</button>
+                        </div>
                     </div>
+                    <p>Tickets Aceptados ###</p>
                     <div className='ListContainer TicketContainer'>
                         <AsignedTicketList />
                     </div>

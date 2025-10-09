@@ -1,74 +1,47 @@
-.ticket-card {
-  display: flex;
-  background: #ededed;
+.user-card {
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   margin-top: 10px;
   cursor: pointer;
-  transition: box-shadow 0.2s ease-in-out;
   width: 100%;
   overflow: hidden;
 }
 
-.ticket-card:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-}
-
-.ticket-bar {
-  width: 5px;
-  background-color: #00acc1;
-}
-
-.ticket-content {
+.user-content {
   display: flex;
   justify-content: space-between;
   padding: 10px 14px;
   width: 100%;
 }
 
-.ticket-left {
+.user-left {
   display: flex;
   flex-direction: column;
   gap: 6px;
   min-width: 100px;
 }
 
-.ticket-left span {
-  font-size: 11px;
+.user-left span {
+  font-size: 12px;
 }
 
-.ticket-title {
+.username {
   font-weight: bold;
-  font-size: 13px;
+  font-size: 14px;
   width: 125px;
 }
 
-.ticket-description {
+.role {
   color: #555;
   font-size: 11px;
 }
 
-.ticket-right {
+.user-right {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: end;
   font-size: 11px;
   gap: 8px;
   flex: 1;
-}
-
-.ticket-data {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.label {
-  font-weight: 500;
-  color: #666;
-}
-
-.bold {
-  font-weight: bold;
 }
 
 .limiter{
@@ -78,65 +51,56 @@
 }
 
 @media (max-width: 1024px) {
-  .ticket-content {
+  .user-card {
     flex-direction: column;
     padding: 10px;
   }
 
-  .ticket-left {
+  .user-left {
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
     min-width: unset;
   }
 
-  .ticket-title {
+  .username {
     flex: 1 1 100%;
     font-size: 14px;
     margin-bottom: 6px;
   }
 
-  .ticket-right {
+  .user-right {
     padding-left: 0;
     font-size: 12px;
   }
 
-  .ticket-data {
-    justify-content: space-between;
-    gap: 10px;
-  }
 }
 
 
 
 /* --- Responsive --- */
 @media (max-width: 600px) {
-  .ticket-content {
+  .user-card {
     flex-direction: column;
     padding: 10px;
   }
 
-  .ticket-left {
+  .user-left {
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
     min-width: unset;
   }
 
-  .ticket-title {
+  .username {
     flex: 1 1 100%;
     font-size: 14px;
     margin-bottom: 6px;
   }
 
-  .ticket-right {
+  .user-right {
     padding-left: 0;
     font-size: 12px;
   }
 
-  .ticket-data {
-    justify-content: space-between;
-    gap: 10px;
-  }
 }
-

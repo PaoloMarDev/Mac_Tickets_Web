@@ -4,8 +4,8 @@ import LoginForm from './components/LoginForm.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import ScreeDisplayer from './components/ScreenDisplayer.jsx'
 
-import AceptarTicketScreen from './components/AceptarTicketScreen.jsx'
-import EnterTicketScreen from './components/EnterTicketScreen.jsx'
+
+import Usuario from './components/Usuario.jsx'
 
 function App() {
 

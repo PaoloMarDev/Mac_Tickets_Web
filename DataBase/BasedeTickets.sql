@@ -174,5 +174,5 @@ INSERT INTO `notifications` (`user_id`, `type`, `data`, `is_read`) VALUES
 -- Propósito: Simular la subida de evidencia por parte del técnico.
 -- Esto cumple con las historias de usuario HU-14 y HU-17.
 -- Nota: 'file_path' es una ruta simulada a donde se guardaría el archivo en el servidor.
-]INSERT INTO `ticket_attachments` (`ticket_id`, `file_path`, `file_type`, `uploaded_by`) VALUES
+INSERT INTO `ticket_attachments` (`ticket_id`, `file_path`, `file_type`, `uploaded_by`) VALUES
 (2, '/uploads/tickets/evidencia_adobe_install_1695494400.jpg', 'image/jpeg', 3); -- El técnico (ID 3) sube una foto como evidencia para el ticket cerrado (ID 2).

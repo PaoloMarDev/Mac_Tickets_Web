@@ -1,16 +1,12 @@
-import React from "react";
 import "../components_css/Ticket.css";
 
 const Ticket = ({ ticket, onClick }) => {
 
-  
-
-
   return (
     <section>
      <div className="ticket-card" onClick={() => onClick(ticket.Ticket_ID)}>
-      {/* Barra lateral */}
-      <div className="ticket-bar"></div>
+      
+      <div className="ticket-bar"></div> {/* Barra lateral */}
 
       {/* Contenido */}
       <div className="ticket-content">

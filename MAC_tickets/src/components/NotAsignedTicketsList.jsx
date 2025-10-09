@@ -17,7 +17,12 @@ export default function TicketList() {
      setLoadedTickets(false);
      setHasError(false);
 
-       fetch(`http://localhost:3000/tickets/nonAceptedTickets/${userid}`)
+       fetch(`http://localhost:3000/tickets/nonAceptedTickets/${userid}`, {
+          method: 'GET',
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`
+          },
+       })
        .then(res => {
          if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);

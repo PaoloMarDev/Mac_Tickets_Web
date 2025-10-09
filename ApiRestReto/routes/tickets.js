@@ -1,16 +1,18 @@
 import express from 'express'
 const router = express.Router()
 
+import { middleware } from '../middleware/jwt.middleware.js'
+
 import { getTickets, getTicket, insertTicket, disableTicket, getTicketsAcepted, getTicketsNotAcepted, aceptarTicket, rechazarTicket } from "../controllers/tickets.controller.js"
 
-router.get("/", getTickets)
-router.get("/:id", getTicket)
-router.get("/aceptedTickets/:id", getTicketsAcepted)
-router.get("/nonAceptedTickets/:id", getTicketsNotAcepted)
-router.post("/insertar", insertTicket)
-router.patch("/desabilitar", disableTicket)
-router.patch("/aceptarTicket", aceptarTicket)
-router.patch("/rechazarTicket", rechazarTicket)
+router.get("/", middleware, getTickets)
+router.get("/:id", middleware, getTicket)
+router.get("/aceptedTickets/:id", middleware, getTicketsAcepted)
+router.get("/nonAceptedTickets/:id", middleware, getTicketsNotAcepted)
+router.post("/insertar", middleware, insertTicket)
+router.patch("/desabilitar", middleware, disableTicket)
+router.patch("/aceptarTicket", middleware, aceptarTicket)
+router.patch("/rechazarTicket", middleware, rechazarTicket)
 
 
 

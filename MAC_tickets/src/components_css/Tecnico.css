@@ -38,12 +38,24 @@
 
 /* Estilo para el header de cada sección (Título) */
 .SectionHeader {
+    display: flex;
     margin-bottom: 10px;
+    justify-content: space-between;
 }
 
 .SectionHeader h2 {
     font-size: 1.2rem;
     color: #333;
+}
+
+.filtros{
+    display: flex;
+    align-items: end;
+    gap: 20px;
+}
+
+.filtros button{
+    width: 100px;
 }
 
 /* Contenedor que permite el SCROLL VERTICAL */
@@ -92,6 +104,7 @@
     /* Sombra para darle un aspecto de ventana flotante */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
+
 
 /* --- RESPONSIVE: Tablet (dos columnas) --- */
 @media (max-width: 1024px) {

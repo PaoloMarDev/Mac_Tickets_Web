@@ -4,14 +4,17 @@ import '../components_css/AceptarTicketScreen.css'
 
 const AceptarTicketScreen = ({ ticket, onExit }) =>{
     
-  
+  // Función para aceptar tickets
   const AceptarTicket = async () =>{
     try {
             const bodyData = { id: ticket.Ticket_ID };
 
             const response = await fetch(`http://localhost:3000/tickets/aceptarTicket`, {
                 method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                 'Content-Type': 'application/json',
+                  authorization: `Bearer ${localStorage.getItem('token')}`
+                },
                 body: JSON.stringify(bodyData)
             });
 
@@ -30,13 +33,17 @@ const AceptarTicketScreen = ({ ticket, onExit }) =>{
         }
   }
 
+  // Función para rechazar tickets
   const RechazarTicket = async () =>{
     try {
             const bodyData = { id: ticket.Ticket_ID };
 
             const response = await fetch(`http://localhost:3000/tickets/rechazarTicket`, {
                 method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                  'Content-Type': 'application/json',
+                  authorization: `Bearer ${localStorage.getItem('token')}`
+                },
                 body: JSON.stringify(bodyData)
             });
 

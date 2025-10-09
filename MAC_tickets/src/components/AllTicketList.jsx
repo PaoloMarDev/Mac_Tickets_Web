@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 import Ticket from "../components/Ticket.jsx";
 
 import EnterTicketScreen from '../components/EnterTicketScreen.jsx'
 
 
-export default function TicketList() {
+
+
+
+const AllTicketList = () => {
   const [tickets, setTickets] = useState([]); // Estado que guarda todos los tickets obtenidos de la API
   const [loadedTickets, setLoadedTickets] = useState(false); // Estado para indicar si la carga ha finalizado (éxito o fallo)
   const [hasError, setHasError] = useState(false); // Estado para manejar si hubo un error en la carga
@@ -18,7 +22,7 @@ export default function TicketList() {
     setHasError(false);
 
     // 2. Usar la cadena de promesas de fetch para manejar errores
-    fetch(`http://localhost:3000/tickets/aceptedTickets/${userid}`, {
+    fetch(`http://localhost:3000/tickets`, {
         method: 'GET',
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`
@@ -97,7 +101,7 @@ export default function TicketList() {
      <div className="ticket-list-container">
         {tickets.map(ticket => (
          <Ticket 
-           key={ticket.Ticket_ID} 
+           key={ticket.id} 
            ticket={ticket} 
            // Esto asegura que el objeto 'ticket' se pase a handleClick
            onClick={() => handleClick(ticket)} 
@@ -118,3 +122,5 @@ export default function TicketList() {
      </div>
   );
 }
+
+export default AllTicketList
