@@ -1,14 +1,20 @@
 import { Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import '../../components_css/Footer.css'
 import logoutLogo from '../../assets/logout.png'
 import editIcon from '../../assets/pencil.png'
 import addIcon from '../../assets/plus.png'
 import Beluga from '../../assets/BelugaMeme.png'
 
+import '../../components_css/Footer.css'
+
+import CrearUsuario from '../PestanasPequenas/CrearUsuario.jsx'
+
 const Footer = () => {
     const [redirect, setRedirect] = useState(false)
     const [accountRole, setAccountRole] = useState("")
+
+    const [abrirCrearUsuario, setAbrirCrearUsuario] = useState(false); 
+
 
     // Funcionamiento de Login
     const logout = () => {
@@ -34,8 +40,27 @@ const Footer = () => {
 
     // Placeholder para los botones sin usar
     const sinFuncionamiento = () => {
-        alert("Este boton aún no tiene funcionalidad")
+       {(
+         <div className="menu-display" onClick={handleCloseModal}>
+           <div className="menu-content" onClick={e => e.stopPropagation()}>
+             <CrearUsuario
+             />
+           </div>
+         </div>
+       )}
     }
+
+    
+    const handleClick = () => {
+     setAbrirCrearUsuario(true); 
+   };
+
+   // Función para cerrar el modal
+   const handleCloseModal = () => {
+     setAbrirCrearUsuario(false);
+   };
+
+
 
     // Distintos Menús dependiendo del role de la cuenta.
  
@@ -76,10 +101,21 @@ const Footer = () => {
                 <button type="button" onClick={logout}>
                     <img src={logoutLogo} alt="Logout Logo" />
                 </button>
-                <button type='button' onClick={sinFuncionamiento}>
+                <button type='button' onClick={handleClick}>
                     <img src={addIcon} alt="Add user Icon" />
                 </button>
             </div>
+            
+            
+            {abrirCrearUsuario && (
+            <div className="createUser-display" onClick={handleCloseModal}>
+                <div className="createUser-content" onClick={e => e.stopPropagation()}>
+                    <CrearUsuario
+                    onExit = {handleCloseModal}
+                    />
+                </div>
+            </div>
+            )}
         </section>    
         )
     }
@@ -93,6 +129,9 @@ const Footer = () => {
                 </button >
                 <p>Algo salió mal, esta cuenta no tiene rol</p>
             </div>
+
+            
+
         </section>
     )
 }
