@@ -1,5 +1,5 @@
 
-import '../components_css/EnterTicketScreen.css'
+import '../../components_css/EnterTicketScreen.css'
 
 function EnterTicketScreen({ ticket, onExit }) { // Renamed for clarity (Read-Only View)
   // ... state and props

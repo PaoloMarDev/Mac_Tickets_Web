@@ -1,0 +1,161 @@
+/* =========================================================================
+   CONTENEDOR PRINCIPAL DEL COMPONENTE
+   ========================================================================= */
+
+.assign-container.assign-view {
+  /* Estilo de la "tarjeta" principal */
+  width: 90%;
+  max-width: 650px;
+  height: 600px; /* Altura fija para que el scroll funcione */
+  margin: 40px auto; /* Usamos margin para centrar en caso de que el padre sea display: block */
+  padding: 30px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+
+  /* Layout principal: Stacks verticalmente */
+  display: flex;
+  flex-direction: column;
+}
+
+/* El contenido estático (header y footer) debe evitar encogerse */
+.assign-static-content {
+  flex-shrink: 0;
+}
+
+/* =========================================================================
+   HEADER Y DESCRIPCIÓN
+   ========================================================================= */
+
+.assign-header {
+    padding-bottom: 20px;
+}
+
+.assign-title {
+  font-size: 24px;
+  margin: 0 0 15px 0;
+}
+
+.assign-description-area {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee; /* Separador sutil */
+}
+
+.assign-description-heading {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.assign-description-text {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* =========================================================================
+   LISTA SCROLLABLE DE TÉCNICOS
+   ========================================================================= */
+
+.assign-list-scroll-area {
+  /* Permite a la lista ocupar todo el espacio restante en el medio */
+  flex-grow: 1;
+  overflow: hidden; /* Oculta el scroll de la propia wrapper */
+}
+
+.assign-technician-list {
+  height: 100%; /* Ocupa el 100% de la altura de la wrapper */
+  overflow-y: scroll; /* Habilita el scroll vertical */
+}
+
+.assign-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd; /* Línea de separación entre técnicos */
+}
+
+/* Remueve la línea inferior del último elemento en la lista */
+.assign-technician-list .assign-list-item:last-child {
+  border-bottom: none; 
+}
+
+.assign-tech-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.assign-tech-stats {
+  font-size: 13px;
+  color: #777;
+  margin: 5px 0 0 0;
+}
+
+.assign-action-block {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.assign-action-button {
+  /* Estilo del botón Asignar (más pequeño) */
+  padding: 6px 15px;
+  font-size: 14px;
+  background-color: #e0e0e0; 
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: #333;
+}
+
+.assign-action-button:hover {
+  background-color: #d0d0d0;
+}
+
+.assign-menu-icon {
+  font-size: 20px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+/* =========================================================================
+   FOOTER Y BOTONES DE ACCIÓN PRINCIPAL
+   ========================================================================= */
+
+.assign-footer {
+  display: flex;
+  justify-content: space-between; /* Salir a la izquierda, otros a la derecha */
+  align-items: center;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.assign-right-buttons {
+  display: flex;
+  gap: 15px; /* Espacio entre Rechazar y Aceptar */
+}
+
+.assign-main-btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  /* Estilo general del botón */
+  background-color: #e0e0e0; 
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.assign-main-btn:hover {
+  background-color: #d0d0d0;
+}

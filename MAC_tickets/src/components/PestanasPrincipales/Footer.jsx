@@ -1,10 +1,10 @@
 import { Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import '../components_css/Footer.css'
-import logoutLogo from '../assets/logout.png'
-import editIcon from '../assets/pencil.png'
-import addIcon from '../assets/plus.png'
-import Beluga from '../assets/BelugaMeme.png'
+import '../../components_css/Footer.css'
+import logoutLogo from '../../assets/logout.png'
+import editIcon from '../../assets/pencil.png'
+import addIcon from '../../assets/plus.png'
+import Beluga from '../../assets/BelugaMeme.png'
 
 const Footer = () => {
     const [redirect, setRedirect] = useState(false)

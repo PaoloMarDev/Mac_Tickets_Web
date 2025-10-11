@@ -1,9 +1,9 @@
 
-import '../components_css/LoginFormBackground.css'
-import '../components_css/LoginForm.css'
-import macLogo from '../assets/Mac_logo.jpg'
-import emailIcon from '../assets/mail.png'
-import passwordIcon from '../assets/contrasena.png'
+import '../../components_css/LoginFormBackground.css'
+import '../../components_css/LoginForm.css'
+import macLogo from '../../assets/Mac_logo.jpg'
+import emailIcon from '../../assets/mail.png'
+import passwordIcon from '../../assets/contrasena.png'
 import { useRef } from "react"
 import { useNavigate } from "react-router-dom"
 

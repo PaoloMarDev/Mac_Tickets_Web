@@ -1,6 +1,6 @@
 
-import '../components_css/Header.css'
-import macLogo from '../assets/Mac_logo.jpg'
+import '../../components_css/Header.css'
+import macLogo from '../../assets/Mac_logo.jpg'
 
 const Header = (title) => {
     return(

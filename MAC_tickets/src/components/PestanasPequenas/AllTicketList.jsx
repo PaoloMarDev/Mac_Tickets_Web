@@ -1,8 +1,8 @@
 
 import { useEffect, useState } from "react";
-import Ticket from "../components/Ticket.jsx";
+import Ticket from "./Ticket.jsx";
 
-import EnterTicketScreen from '../components/EnterTicketScreen.jsx'
+import EnterTicketScreen from '../PestanasPequenas/EnterTicketScreen.jsx'
 
 
 

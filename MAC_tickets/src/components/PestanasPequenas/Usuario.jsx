@@ -1,7 +1,7 @@
 
-import '../components_css/Usuario.css'
+import '../../components_css/Usuario.css'
 
-import dots from '../assets/dots.png'
+import dots from '../../assets/dots.png'
 
 
 

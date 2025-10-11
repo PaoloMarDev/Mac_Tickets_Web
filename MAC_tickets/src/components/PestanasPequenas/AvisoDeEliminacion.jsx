@@ -1,5 +1,5 @@
 
-import '../components_css/AvisoEliminar.css'
+import '../../components_css/AvisoEliminar.css'
 
 const AvisoDeEliminacion = ({onExit, disable}) => {
     return(

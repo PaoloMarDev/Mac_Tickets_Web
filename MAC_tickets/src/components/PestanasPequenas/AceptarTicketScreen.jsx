@@ -1,6 +1,6 @@
 
 import { useEffect } from 'react';
-import '../components_css/AceptarTicketScreen.css'
+import '../../components_css/AceptarTicketScreen.css'
 
 const AceptarTicketScreen = ({ ticket, onExit }) =>{
     

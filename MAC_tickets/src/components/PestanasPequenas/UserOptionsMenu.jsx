@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-import '../components_css/UserOptionMenu.css'
+import '../../components_css/UserOptionMenu.css'
 
-import disable from '../assets/delete.png'
-import recover from '../assets/recover.png'
+import disable from '../../assets/delete.png'
+import recover from '../../assets/recover.png'
 
-import AvisoDeEliminacion from './AvisoDeEliminacion.jsx'
+import AvisoDeEliminacion from '../PestanasPequenas/AvisoDeEliminacion.jsx'
 
 
 const UserOptionsMenu = ({user}) => {

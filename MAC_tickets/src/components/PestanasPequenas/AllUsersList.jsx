@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import Usuario from './Usuario.jsx'
-import UserOptionsMenu from './UserOptionsMenu.jsx'
+import Usuario from '../PestanasPequenas/Usuario.jsx'
+import UserOptionsMenu from '../PestanasPequenas/UserOptionsMenu.jsx'
 
 
 const AllUsersList = () => {

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 
-import Tecnico from "./Tecnico"
+import Tecnico from "./Tecnico.jsx"
 import Administrador from "./Administrador"
 
 
 
-import Footer from '../components/Footer.jsx'
-import Header from '../components/Header.jsx'
+import Footer from './Footer.jsx'
+import Header from './Header.jsx'
 
 const ScreenDisplayer = () =>{
     const [accountRole, setAccountRole] = useState("")

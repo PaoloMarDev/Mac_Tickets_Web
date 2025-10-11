@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Ticket from "../components/Ticket.jsx";
+import Ticket from "./Ticket.jsx";
 import AceptarTicketScreen from "./AceptarTicketScreen.jsx";
 
 

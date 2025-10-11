@@ -1,10 +1,10 @@
 
 
-import AllTicketList from './AllTicketList.jsx'
-import AllUsersList from './AllUsersList.jsx'
+import AllTicketList from '../PestanasPequenas/AllTicketList.jsx'
+import AllUsersList from '../PestanasPequenas/AllUsersList.jsx'
 
 
-import '../components_css/Tecnico.css'
+import '../../components_css/Tecnico.css'
 
 
 

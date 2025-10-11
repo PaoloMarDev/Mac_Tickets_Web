@@ -1,9 +1,9 @@
 
 import { useEffect, useState } from 'react'
-import AsignedTicketList from '../components/AsignedTicketsList.jsx'
-import NotAsignedTicketsList from '../components/NotAsignedTicketsList.jsx'
+import AsignedTicketList from '../PestanasPequenas/AsignedTicketsList.jsx'
+import NotAsignedTicketsList from '../PestanasPequenas/NotAsignedTicketsList.jsx'
 
-import '../components_css/Tecnico.css'
+import '../../components_css/Tecnico.css'
 
 const Tecnico = () => {
 
