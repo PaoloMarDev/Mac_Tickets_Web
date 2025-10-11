@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 
 import Usuario from './Usuario.jsx'
+import UserOptionsMenu from './UserOptionsMenu.jsx'
 
 
 const AllUsersList = () => {
-    const [usuarios, setUsuarios] = useState([]); // Estado que guarda todos los tickets obtenidos de la API
+  const [usuarios, setUsuarios] = useState([]); // Estado que guarda todos los tickets obtenidos de la API
   const [loadedUsers, setLoadedUser] = useState(false); // Estado para indicar si la carga ha finalizado (éxito o fallo)
   const [hasError, setHasError] = useState(false); // Estado para manejar si hubo un error en la carga
-  const [selectedTicket, setSelectedUser] = useState(null); 
+  const [selectedUser, setSelectedUser] = useState(null); 
 
   const userid = localStorage.getItem("id"); // Obtenemos el id del usuario que está guardado en el localstorage
 
@@ -102,6 +103,18 @@ const AllUsersList = () => {
            onClick={() => handleClick(usuario)} 
          />
        ))}
+
+      {/* 2. Menú para recuperar o desabilitar usuario */}
+       {selectedUser && (
+         <div className="menu-display" onClick={handleCloseModal}>
+           <div className="menu-content" onClick={e => e.stopPropagation()}>
+             <UserOptionsMenu
+               user={selectedUser} 
+             />
+           </div>
+         </div>
+       )}
+
      </div>
   );
 }

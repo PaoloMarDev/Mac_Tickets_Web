@@ -1,5 +1,7 @@
 import "../components_css/Ticket.css";
 
+import dots from '../assets/dots.png'
+
 const Ticket = ({ ticket, onClick }) => {
 
   return (

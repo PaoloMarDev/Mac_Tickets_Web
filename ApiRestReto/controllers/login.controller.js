@@ -14,7 +14,7 @@ const doLogin = async (req, res) => {
         }
 
 
-        const sql = "SELECT id, email, role, is_active FROM users WHERE email = ? AND password = SHA2(?, 224)";
+        const sql = "SELECT id, email, role, is_active FROM users WHERE email = ? AND password = SHA2(?, 224) AND is_active = 1";
         const [rows] = await pool.query(sql, [email, password])
         
         if(rows.length === 1){

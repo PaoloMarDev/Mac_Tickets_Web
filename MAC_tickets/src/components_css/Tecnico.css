@@ -105,6 +105,33 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
+.menu-display {
+    position: fixed; /* Fija la posición relativa a la ventana */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Color oscuro semi-transparente */
+    
+    /* Centrado del contenido */
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    
+    /* Asegura que esté por encima de todos los demás elementos */
+    z-index: 1000; 
+}
+
+/* 2. Estilos para el Contenedor del Componente (AceptarTicketScreen) */
+.menu-content {
+    /* El contenido del ticket (AceptarTicketScreen) */
+    background: white; 
+    padding: 20px;
+    border-radius: 8px;
+    /* Sombra para darle un aspecto de ventana flotante */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
 
 /* --- RESPONSIVE: Tablet (dos columnas) --- */
 @media (max-width: 1024px) {

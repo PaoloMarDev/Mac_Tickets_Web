@@ -41,7 +41,7 @@ const Administrador = () => {
                             <h2>Notificaciones</h2>
                         </div>
                         <div className='ListContainer NotificationContainer'>
-                            {/* Aquí iría el componente de lista de Nuevos Tickets */}
+                            {/* Aquí iría el componente de notificaiones */}
                         </div>
                     </div>
                     <div className='vertical-line'></div>
