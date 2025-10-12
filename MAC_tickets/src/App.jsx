@@ -5,8 +5,6 @@ import ProtectedRoute from './components/Otros/ProtectedRoute.jsx'
 import ScreeDisplayer from './components/PestanasPrincipales/ScreenDisplayer.jsx'
 
 
-import Crear from './components/PestanasPequenas/CrearUsuario.jsx'
-import Rec from './components/PestanasPequenas/RecuperarContra.jsx'
 import Asig from './components/PestanasPequenas/AsignarTecnico.jsx'
 
 function App() {

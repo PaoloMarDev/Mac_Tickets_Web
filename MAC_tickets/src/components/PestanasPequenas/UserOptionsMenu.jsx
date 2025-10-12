@@ -6,21 +6,29 @@ import disable from '../../assets/delete.png'
 import recover from '../../assets/recover.png'
 
 import AvisoDeEliminacion from '../PestanasPequenas/AvisoDeEliminacion.jsx'
+import RecuperaraContra from '../PestanasPequenas/RecuperarContra.jsx'
 
 
 const UserOptionsMenu = ({user}) => {
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalElimintaionOpen, setisModalElimintaionOpen] = useState(false);
+    const [isModalRecoverOpen, setisModalRecoverOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
     const userid = localStorage.getItem("id"); // Obtenemos el id del usuario que está guardado en el localstorage
 
-    const handleOpenModal = (user) => {
-        setIsModalOpen(true);
+    const handleOpenModalElimination = (user) => {
+        setisModalElimintaionOpen(true);
     };
 
+     const handleOpenModalRecover = (user) => {
+        setSelectedUser(user)
+        setisModalRecoverOpen(true);
+    };
+    
     const handleCloseModal = () => {
-        setIsModalOpen(false);
+        setisModalRecoverOpen(false);
+        setisModalElimintaionOpen(false);
         setSelectedUser(null);
     };
 
@@ -44,7 +52,7 @@ const UserOptionsMenu = ({user}) => {
 
         if (!response.ok) {
                 // Si la petición falla (ej: error 404/500), lanzamos un error
-                throw new Error(`Fallo la aceptación del ticket: ${response.status}`);
+                throw new Error(`Fallo la eliminación del usuario: ${response.status}`);
             }
 
 
@@ -59,20 +67,22 @@ const UserOptionsMenu = ({user}) => {
     return(
         <section className="UserMenuContent">
             <div className="MenuBotones">
-                <button type='button' className='buttonOption'>
+                <button type='button' className='buttonOption' onClick={() => {
+                    handleOpenModalRecover(user)
+                }}>
                     <img src={recover} alt='Icono para recuperar contraseña'></img>
                     Recupere Contraseña
                 </button>
             </div>
             <div className="MenuBotones">
                 <button type='button' className='buttonOption' onClick={() => 
-                    handleOpenModal()
+                    handleOpenModalElimination()
                 }>
                     <img src={disable} alt='Icono de Borrar'></img>
                     Eliminar
                 </button>
 
-                {isModalOpen && (
+                {isModalElimintaionOpen && (
                     <div className="menueliminar-display" onClick={handleCloseModal}>
                     <div className="menueliminar-content" onClick={e => e.stopPropagation()}>
                         <AvisoDeEliminacion
@@ -80,6 +90,18 @@ const UserOptionsMenu = ({user}) => {
                             user={selectedUser} 
                             onExit={handleCloseModal}
                             disable={disableUser}
+                        />
+                    </div>
+                </div>
+                )}
+
+                {isModalRecoverOpen && (
+                    <div className="menueliminar-display" onClick={handleCloseModal}>
+                    <div className="menueliminar-content" onClick={e => e.stopPropagation()}>
+                        <RecuperaraContra
+                            // Si el menú necesita datos de un usuario específico, pásalo aquí
+                            user={selectedUser} 
+                            onExit={handleCloseModal}
                         />
                     </div>
                 </div>

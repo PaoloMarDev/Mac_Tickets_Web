@@ -123,7 +123,7 @@ const CrearUsuario = ({onExit}) => {
         {/* Acciones del Formulario (Botones) */}
         <footer className="form-actions">
           <button className="btn accept-btn" onClick={CreateUser}>Aceptar</button>
-          <button className="btn cancel-btn">Cancelar</button>
+          <button className="btn cancel-btn" onClick={onExit}>Cancelar</button>
         </footer>
       </div>
     </section>
