@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 
 import Tecnico from "./Tecnico.jsx"
 import Administrador from "./Administrador"
+import MesaDeTrabajo from "./MesaDeTrabajo.jsx"
 
 
 
@@ -29,7 +30,7 @@ const ScreenDisplayer = () =>{
         return(
             <div>
                 <Header name={"Mesa De Trabajo"}/>
-                <h1>No hay vista de Mesa</h1>
+                <MesaDeTrabajo />
                 <Footer />
             </div> 
         )

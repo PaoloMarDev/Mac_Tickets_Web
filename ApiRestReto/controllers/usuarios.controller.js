@@ -13,7 +13,7 @@ const getUsers = async (req, res) => {
 // Metodo para conseguir a 1 usuario
 const getUser = async (req, res) => {
     try{
-        const { id } = req.params;
+        const { id } = req.body;
         const [rows] = await pool.query('SELECT id, email, role, is_active, created_at FROM users WHERE id = ?', [id]);
         if (rows.length === 0){
             return res.status(404).json({ error: 'usuario no encontrado'});      
@@ -92,4 +92,13 @@ const recoverUser = async (req, res) => {
     }
 }
 
-export { getUser, getUsers, disableUser, insertUsers, recoverUser}
+const getTecnicos = async (req, res) => {
+    try{
+        const [rows] = await pool.query('SELECT id, role, is_active, created_at FROM users WHERE is_active = 1 AND role = "TECNICO"');
+        res.json(rows);
+    } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+        res.status(500).json({ error: 'Error al obtener los usuarios de la aplicación'});}
+}
+
+export { getUser, getUsers, disableUser, insertUsers, recoverUser, getTecnicos}
