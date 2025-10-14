@@ -2,8 +2,7 @@
 import { useEffect, useState } from "react";
 import Ticket from "./Ticket.jsx";
 
-import EnterTicketScreen from '../PestanasPequenas/EnterTicketScreen.jsx'
-
+import Mta from './MenuTicketAdmin.jsx'
 
 
 
@@ -15,6 +14,7 @@ const AllTicketList = () => {
   const [selectedTicket, setSelectedTicket] = useState(null); 
 
   const userid = localStorage.getItem("id"); // Obtenemos el id del usuario que está guardado en el localstorage
+  const cuentaActual = localStorage.getItem("role");
 
   useEffect(() => {
     // 1. Resetear estados al iniciar la carga
@@ -51,7 +51,6 @@ const AllTicketList = () => {
     const handleClick = (ticketData) => {
      // ticketData ahora recibe el objeto del ticket
      setSelectedTicket(ticketData); 
-     console.log(ticketData)
    };
 
    // Función para cerrar el modal
@@ -111,9 +110,9 @@ const AllTicketList = () => {
        {/* 2. Modal Condicional */}
        {selectedTicket && (
          <div className="modal-overlay" onClick={handleCloseModal}>
-           <div className="modal-content" onClick={e => e.stopPropagation()}>
-             <EnterTicketScreen 
-               ticket={selectedTicket} 
+           <div className="menu-ticket-admin" onClick={e => e.stopPropagation()}>
+             <Mta 
+               ticket={selectedTicket}
                onExit={handleCloseModal}
              />
            </div>

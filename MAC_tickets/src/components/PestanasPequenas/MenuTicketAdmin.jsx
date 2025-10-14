@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import Asig from './AsignarTecnico' // Falta añadir esta funcionalidad
 
 
-const MenuTicketAdmin = () => {
+const MenuTicketAdmin = ({ticket, onExit, onTicketUpdate }) => {
 
         const [isModalAsigTec, setisModalAsigTec] = useState(false);
-        const [Tecnicos, setTecnicos] = useState([]);
-    
+
+
         const userid = localStorage.getItem("id"); // Obtenemos el id del usuario que está guardado en el localstorage
     
         const handleOpenModalAsigTec = (user) => {
@@ -36,6 +36,8 @@ const MenuTicketAdmin = () => {
                     <div className="menueliminar-display" onClick={handleCloseModal}>
                     <div className="menueliminar-content" onClick={e => e.stopPropagation()}>
                         <Asig
+                            ticket = {ticket}
+                            onExit = {onExit}
                         />
                     </div>
                 </div>

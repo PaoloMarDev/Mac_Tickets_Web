@@ -94,11 +94,33 @@ const recoverUser = async (req, res) => {
 
 const getTecnicos = async (req, res) => {
     try{
-        const [rows] = await pool.query('SELECT id, role, is_active, created_at FROM users WHERE is_active = 1 AND role = "TECNICO"');
+        const [rows] = await pool.query('SELECT id, email, role, is_active, created_at FROM users WHERE is_active = 1 AND role = "TECNICO"');
         res.json(rows);
     } catch (error) {
         console.error('Error al obtener usuarios:', error);
         res.status(500).json({ error: 'Error al obtener los usuarios de la aplicación'});}
 }
 
-export { getUser, getUsers, disableUser, insertUsers, recoverUser, getTecnicos}
+const asignarTicket = async (req, res) => {
+    try{
+        const {ticket_id, user_id} = req.body
+        
+        if(!ticket_id || !user_id){
+            return res.status(400).json({error : "Falta algún id"})
+        }
+
+        await pool.query("UPDATE tickets SET assigned_to = ? WHERE id = ?", [user_id, ticket_id]); 
+        
+        res.status(201).json({
+            exito: "Se logró la actualización de asignación de ticket"
+        })
+
+    } catch(error){
+        console.error('Error al asignar el usuario', error)
+        res.status(500).json({ error: 'Error al asignar el usuario'});
+    }
+}
+
+
+
+export { getUser, getUsers, disableUser, insertUsers, recoverUser, getTecnicos, asignarTicket}
