@@ -139,6 +139,56 @@ const rechazarTicket = async (req, res) => {
     }
 }
 
+const asignarCategoria = async (req, res) => {
+    try{
+        const {id, category} = req.body // id del ticket
+        if(!id){
+            return res.status(400).json({error : "Falta el id o la categoría"})
+        }
+        if(!category){
+            return res.status(400).json({error : "Falta la categoría"})
+        }
+
+        if(category != "REDES" && category != "SOFTWARE" && category != "HARDWARE" ){
+            return res.status(400).json({error : "La categoría no está disponible"})
+        }
+
+        await pool.query('UPDATE tickets SET category = ? WHERE id = ?', [category, id]);
+
+        res.status(200).json({
+            exito: "Se logró actualizar la categoría"
+        })
+
+    }catch(error){
+        res.status(500).json({ error : "Error al actualizar la categoría"})
+    }
+}
+
+const asignarPrioridad = async (req, res) => {
+    try{
+        const {id, priority} = req.body // id del ticket
+        if(!id){
+            return res.status(400).json({error : "Falta el id"})
+        }
+        if(!priority){
+            return res.status(400).json({error : "Falta la prioridad"})
+        }
+
+
+        if(priority != "BAJA" && priority != "ALTA" && priority != "MEDIA" ){
+            return res.status(400).json({error : "La prioridad no está disponible"})
+        }
+
+        await pool.query('UPDATE tickets SET priority = ? WHERE id = ?', [priority, id]);
+
+        res.status(200).json({
+            exito: "Se logró actualizar la prioridad"
+        })
+
+    }catch(error){
+        res.status(500).json({ error : "Error al actualizar la prioridad"})
+    }
+}
 
 
 export { getTicket, 
@@ -148,4 +198,7 @@ export { getTicket,
          getTicketsAcepted, 
          getTicketsNotAcepted,
          aceptarTicket,
-         rechazarTicket}
+         rechazarTicket,
+         asignarCategoria,
+         asignarPrioridad
+        }

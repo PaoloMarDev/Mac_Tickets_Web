@@ -4,18 +4,6 @@ import { useState, useEffect } from 'react';
 
 import '../../components_css/AsignarTecnico.css'
 
-// Datos de ejemplo
-const technicians = [
-  { id: 1, name: "Juan Pérez", assignedTickets: 99 },
-  { id: 2, name: "María Gómez", assignedTickets: 99 },
-  { id: 3, name: "Carlos Ruiz", assignedTickets: 99 },
-  { id: 4, name: "Laura Sánchez", assignedTickets: 99 },
-  { id: 5, name: "Miguel Torres", assignedTickets: 99 },
-  { id: 6, name: "Sofía Vargas", assignedTickets: 99 },
-  { id: 7, name: "Diego Castro", assignedTickets: 99 },
-  { id: 8, name: "Ana Herrera", assignedTickets: 99 },
-];
-
 const VistaDeAsignar = ({ticket, onExit}) =>  {
   const [tecnicos, setTecnicos] = useState([])
   const [loadedTecnicos, setloadedTecnicos] = useState(false); // Estado para indicar si la carga ha finalizado (éxito o fallo)

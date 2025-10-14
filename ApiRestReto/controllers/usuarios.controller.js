@@ -123,4 +123,10 @@ const asignarTicket = async (req, res) => {
 
 
 
-export { getUser, getUsers, disableUser, insertUsers, recoverUser, getTecnicos, asignarTicket}
+export { getUser, 
+         getUsers, 
+         disableUser, 
+         insertUsers, 
+         recoverUser, 
+         getTecnicos, 
+         asignarTicket}
