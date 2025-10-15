@@ -50,14 +50,14 @@ const disableTicket = async (req, res) => {
 // Metodo para crear usuario
 const insertTicket = async (req, res) => {
     try{
-        const {title, description, category, priority, status, created_by, assigned_to} = req.body;
-        if(!title || !description || !category || !priority || !status || !created_by || !assigned_to){
+        const {title, description, category, priority, created_by, assigned_to} = req.body;
+        if(!title || !description || !category || !priority || !created_by || !assigned_to){
             return res.status(400).json(
-                { error: "Faltan campos obligatorios, campos: title, description, category, priority, status, created_by, assigned_to"});
+                { error: "Faltan campos obligatorios, campos: title, description, category, priority, created_by, assigned_to"});
         }
 
-        const [result] = await pool.query("INSERT INTO `tickets` (`title`, `description`, `category`, `priority`, `status`, `created_by`, `assigned_to`) VALUES (?,?,?,?,?,?,?)", 
-            [title, description, category, priority, status, created_by, assigned_to]);
+        const [result] = await pool.query("INSERT INTO `tickets` (`title`, `description`, `category`, `priority`, `created_by`, `assigned_to`) VALUES (?,?,?,?,?,?)", 
+            [title, description, category, priority, created_by, assigned_to]);
         
         res.status(201).json({
             exito: "Se logró agregar al nuevo ticket"
@@ -149,7 +149,7 @@ const asignarCategoria = async (req, res) => {
             return res.status(400).json({error : "Falta la categoría"})
         }
 
-        if(category != "REDES" && category != "SOFTWARE" && category != "HARDWARE" ){
+        if(category != "REDES" && category != "SOFTWARE" && category != "HARDWARE" && category != "OTRO"){
             return res.status(400).json({error : "La categoría no está disponible"})
         }
 

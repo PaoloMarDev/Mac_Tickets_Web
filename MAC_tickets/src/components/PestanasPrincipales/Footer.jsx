@@ -8,12 +8,14 @@ import Beluga from '../../assets/BelugaMeme.png'
 import '../../components_css/Footer.css'
 
 import CrearUsuario from '../PestanasPequenas/CrearUsuario.jsx'
+import CreacionDeTicket from '../PestanasPequenas/CreacionDeTicket.jsx'
 
 const Footer = () => {
     const [redirect, setRedirect] = useState(false)
     const [accountRole, setAccountRole] = useState("")
 
     const [abrirCrearUsuario, setAbrirCrearUsuario] = useState(false); 
+    const [abrirCrearticket, setAbrirCrearTicket] = useState(false); 
 
 
     // Funcionamiento de Login
@@ -51,13 +53,18 @@ const Footer = () => {
     }
 
     
-    const handleClick = () => {
+    const handleClickCreateUser = () => {
      setAbrirCrearUsuario(true); 
    };
-
-   // Función para cerrar el modal
-   const handleCloseModal = () => {
-     setAbrirCrearUsuario(false);
+    
+   const handleClickCreateTicket = () => {
+     setAbrirCrearTicket(true); 
+    };
+    
+    // Función para cerrar el modal
+    const handleCloseModal = () => {
+        setAbrirCrearUsuario(false);
+        setAbrirCrearTicket(false); 
    };
 
 
@@ -86,10 +93,20 @@ const Footer = () => {
                 <button type="button" onClick={logout}>
                     <img src={logoutLogo} alt="Logout Logo" />
                 </button>
-                <button type='button' onClick={sinFuncionamiento}>
+                <button type='button' onClick={handleClickCreateTicket}>
                     <img src={addIcon} alt="Add ticket Icon" />
                 </button>
             </div>
+
+            {abrirCrearticket && (
+            <div className="createUser-display" onClick={handleCloseModal}>
+                <div className="createUser-content" onClick={e => e.stopPropagation()}>
+                    <CreacionDeTicket
+                    onExit = {handleCloseModal}
+                    />
+                </div>
+            </div>
+            )}
         </section>    
         )
     }
@@ -101,7 +118,7 @@ const Footer = () => {
                 <button type="button" onClick={logout}>
                     <img src={logoutLogo} alt="Logout Logo" />
                 </button>
-                <button type='button' onClick={handleClick}>
+                <button type='button' onClick={handleClickCreateUser}>
                     <img src={addIcon} alt="Add user Icon" />
                 </button>
             </div>
