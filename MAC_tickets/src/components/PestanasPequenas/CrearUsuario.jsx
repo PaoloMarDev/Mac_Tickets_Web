@@ -14,10 +14,16 @@ const CrearUsuario = ({onExit}) => {
 
     const from = new FormData(formulario.current);
     const dataToSend = Object.fromEntries(from.entries());
+    
+    if(dataToSend.email == '' || dataToSend.password == '' || dataToSend.newPassword == ''){
+        return alert("Faltan información para completar el ticket")
+      }
 
     if(dataToSend.password != dataToSend.newPassword){
       return alert("Las contraseñas no son iguales :C")
     }
+
+    
 
       try{
 

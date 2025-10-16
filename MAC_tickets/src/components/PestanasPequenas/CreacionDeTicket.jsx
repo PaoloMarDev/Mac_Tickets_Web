@@ -46,6 +46,10 @@ function TicketCreationForm({onExit}) {
 
       const from = new FormData(formulario.current);
       const dataToSend = Object.fromEntries(from.entries());
+      
+      if(dataToSend.title == '' || dataToSend.description == '' || dataToSend.tecnico_id == ''){
+        return alert("Faltan información para completar el ticket")
+      }
 
       try{
         
@@ -65,7 +69,8 @@ function TicketCreationForm({onExit}) {
         })
       })
 
-        console.log(dataToSend)
+      console.log(dataToSend)
+
         onExit()
 
         } catch {
