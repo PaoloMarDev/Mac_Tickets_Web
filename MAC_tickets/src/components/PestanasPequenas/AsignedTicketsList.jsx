@@ -4,7 +4,7 @@ import Ticket from "./Ticket.jsx";
 import EnterTicketScreen from './EnterTicketScreen.jsx'
 
 
-export default function TicketList() {
+export default function TicketList({setListToUse, getListToUse}) {
   const [tickets, setTickets] = useState([]); // Estado que guarda todos los tickets obtenidos de la API
   const [loadedTickets, setLoadedTickets] = useState(false); // Estado para indicar si la carga ha finalizado (éxito o fallo)
   const [hasError, setHasError] = useState(false); // Estado para manejar si hubo un error en la carga
@@ -33,8 +33,9 @@ export default function TicketList() {
       })
       .then(data => {
         // 3. Éxito: Establecer los tickets y marcar como cargado
-        setTickets(data);
         setLoadedTickets(true);
+        setListToUse(data)
+        setTickets(getListToUse());
       })
       .catch(error => {
         // 4. Fallo: Registrar el error y marcar que hubo un error
@@ -43,6 +44,12 @@ export default function TicketList() {
         setLoadedTickets(true); // La carga ha finalizado, aunque con error
       });
   }, [userid]); // Añadir userid como dependencia por si cambia
+
+  // **Añadir un segundo useEffect para actualizar tickets cuando la lista filtrada cambie**
+    // Esto se activa cada vez que el padre (Administrador) llama a setFilteredList a través de setListToUse.
+    useEffect(() => {
+      setTickets(getListToUse());
+    }, [getListToUse]);
 
     const handleClick = (ticketData) => {
      // ticketData ahora recibe el objeto del ticket

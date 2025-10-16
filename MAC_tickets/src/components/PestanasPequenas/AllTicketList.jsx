@@ -14,7 +14,6 @@ const AllTicketList = ({setListToUse, getListToUse}) => {
   const [selectedTicket, setSelectedTicket] = useState(null); 
 
   const userid = localStorage.getItem("id"); // Obtenemos el id del usuario que está guardado en el localstorage
-  const cuentaActual = localStorage.getItem("role");
 
   useEffect(() => {
     // 1. Resetear estados al iniciar la carga

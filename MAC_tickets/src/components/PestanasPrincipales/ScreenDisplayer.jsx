@@ -20,7 +20,7 @@ const ScreenDisplayer = () =>{
     if(accountRole == "TECNICO"){
         return(
             <div>
-                <Header name={"Ténico"}/>
+                <Header name={"Técnico"}/>
                 <Tecnico />
                 <Footer />
             </div> 

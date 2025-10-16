@@ -89,11 +89,10 @@ const Administrador = () => {
         <section className='TechnicalView'>
             <div className='vertical-line'></div>
             <div className='ViewSection AssignedTickets'>
+                <h2>Tickets</h2>
                 <div className="SectionHeader">
-                    <h2>Tickets</h2>
                     <div className='Search'>
-                        <span>Buscar:</span>
-                        <input type="search" placeholder='buscar' onChange={handleChange} value={query}/>
+                        <input type="search" placeholder='Buscar...' onChange={handleChange} value={query}/>
                     </div>
                     <div className='filtros'>
                         
@@ -105,7 +104,7 @@ const Administrador = () => {
                             onChange={handleChangeCategory}
                             value={selectedCategory}>
                             {categories.map(c => (
-                                <option key={c} value={c}>{c}</option>
+                                <option className="option" key={c} value={c}>{c}</option>
                             ))}
                             </select>
                         </div>
