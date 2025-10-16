@@ -10,23 +10,19 @@ DEFAULT COLLATE utf8mb4_0900_ai_ci;
 USE estdo_tickets;
 
 ---
-
 -- Sección 2: Creación de la tabla `users`
 -- Propósito: Almacena la información de todos los usuarios del sistema (Administradores, Mesa de Trabajo y Técnicos).
 -- Es la tabla central para la autenticación y la gestión de permisos.
 CREATE TABLE IF NOT EXISTS users (
   id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT, -- Identificador único para cada usuario.
+  username VARCHAR(255) NOT NULL,
   email VARCHAR(191) NOT NULL UNIQUE,             -- Correo electrónico del usuario, se usa como nombre de usuario y debe ser único.
-  password_hash VARCHAR(255) NOT NULL,            -- Almacena el hash de la contraseña (nunca la contraseña en texto plano).
+  password VARCHAR(255) NOT NULL,            -- Almacena el hash de la contraseña (nunca la contraseña en texto plano).
   role ENUM('ADMIN','MESA','TECNICO') NOT NULL,  -- El rol del usuario define sus permisos en el sistema.
-  is_active TINYINT(1) NOT NULL DEFAULT 1,      -- Bandera para habilitar/deshabilitar usuarios sin eliminarlos.
-  is_online TINYINT(1) NOT NULL DEFAULT 0,      -- **NUEVO:** Indica si el técnico está en línea para la asignación de tickets (requerimiento RF: 23).
-  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha y hora de creación del registro de usuario.
-  updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP, -- Fecha de la última actualización del registro.
-  last_password_reset TIMESTAMP NULL DEFAULT NULL   -- **NUEVO:** Almacena la fecha del último restablecimiento de contraseña para fines de seguridad (requerimiento RF: 10).
+  is_active BOOL DEFAULT TRUE, -- Bandera para habilitar/deshabilitar usuarios sin eliminarlos.
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP -- Fecha y hora de creación del registro de usuario.
 ) ENGINE=InnoDB;
 
----
 
 -- Sección 3: Creación de la tabla `tickets`
 -- Propósito: Almacena todos los tickets de servicio creados en el sistema.
@@ -41,9 +37,8 @@ CREATE TABLE IF NOT EXISTS tickets (
   created_by BIGINT UNSIGNED NOT NULL,              -- ID del usuario de Mesa de Trabajo que creó el ticket (requerimiento HU-19).
   assigned_to BIGINT UNSIGNED NULL,                 -- ID del técnico al que se le asignó el ticket. Es `NULL` si aún no está asignado (requerimiento HU-23).
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,  -- Fecha y hora de creación del ticket.
-  updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP, -- Fecha de la última actualización del ticket (ej. cambio de estado o reasignación).
-  closed_at TIMESTAMP NULL,                         -- **NUEVO:** Fecha y hora en que el ticket fue cerrado. Es útil para calcular el tiempo de resolución (requerimiento HU-10).
-  solution_description TEXT NULL,                   -- **NUEVO:** Descripción de la solución final registrada por el técnico (requerimiento HU-17).
+  is_active BOOL DEFAULT TRUE,
+  acepted BOOL DEFAULT 0,
  
   CONSTRAINT fk_tickets_created_by
     FOREIGN KEY (created_by) REFERENCES users(id) -- Clave foránea que enlaza el creador con la tabla `users`.
@@ -137,11 +132,13 @@ USE estdo_tickets;
 -- Nota: En una aplicación real, el 'password_hash' sería generado
 -- por un algoritmo seguro (como bcrypt), aquí es solo un texto de ejemplo.
 -- Asumimos que los IDs serán 1 (admin), 2 (mesa) y 3 (tecnico).
-INSERT INTO `users` (`email`, `password_hash`, `role`, `is_active`, `is_online`) VALUES
-('admin@sistema.com', 'hash_del_password_admin_123', 'ADMIN', 1, 0),
-('mesa@sistema.com', 'hash_del_password_mesa_456', 'MESA', 1, 1),
-('tecnico@sistema.com', 'hash_del_password_tecnico_789', 'TECNICO', 1, 1);
+INSERT INTO `users` (`username`, `email`, `password`, `role`) VALUES
+('Admin1', 'admin@sistem.com', SHA2('contrasena_123', 224), 'ADMIN'),
+('Mesa1', 'mesa@sistema.com', SHA2('contrasena_0000', 224), 'MESA'),
+('Tecnico1', 'tecnico@sistema.com', SHA2('contrasena_80082', 224), 'TECNICO');
 
+INSERT INTO `users` (`username`, `email`, `password`, `role`) VALUES
+('tecnico2', 'tecnico2@sistema.com', SHA2('contrasena', 224), 'TECNICO');
 -- Sección 2: Inserción de Tickets
 -- Propósito: Crear tickets que simulen diferentes escenarios.
 -- - Un ticket EN PROCESO asignado al técnico.
@@ -150,10 +147,14 @@ INSERT INTO `users` (`email`, `password_hash`, `role`, `is_active`, `is_online`)
 -- Los tickets son creados por el usuario de Mesa de Trabajo (ID: 2)
 -- y asignados al Técnico (ID: 3), cumpliendo con la historia de usuario HU-19.
 
-INSERT INTO `tickets` (`title`, `description`, `category`, `priority`, `status`, `created_by`, `assigned_to`, `closed_at`, `solution_description`) VALUES
-('Falla en impresora de contabilidad', 'La impresora HP LaserJet Pro M404dn no enciende y marca un error de atasco, pero no hay papel visiblemente atascado.', 'HARDWARE', 'ALTA', 'EN_PROCESO', 2, 3, NULL, NULL),
-('Instalación de software de diseño', 'Se necesita instalar la suite de Adobe Creative Cloud en el equipo nuevo del área de marketing. La licencia ya está disponible.', 'SOFTWARE', 'MEDIA', 'CERRADO', 2, 3, '2025-09-22 14:30:00', 'Se instaló y activó correctamente la licencia de Adobe Creative Cloud en el equipo solicitado. Se realizaron pruebas de apertura en Photoshop e Illustrator.'),
-('Problema de conexión a la red WiFi', 'Varios usuarios del área de ventas reportan intermitencia en la conexión WiFi. La señal aparece y desaparece constantemente.', 'REDES', 'MEDIA', 'ABIERTO', 2, NULL, NULL, NULL);
+INSERT INTO `tickets` (`title`, `description`, `category`, `priority`, `status`, `created_by`, `assigned_to`) VALUES
+('Falla en impresora de contabilidad', 'La impresora HP LaserJet Pro M404dn no enciende y marca un error de atasco, pero no hay papel visiblemente atascado.', 'HARDWARE', 'ALTA', 'EN_PROCESO', 2, 3),
+('Instalación de software de diseño', 'Se necesita instalar la suite de Adobe Creative Cloud en el equipo nuevo del área de marketing. La licencia ya está disponible.', 'SOFTWARE', 'MEDIA', 'CERRADO', 2, 3),
+('Problema de conexión a la red WiFi', 'Varios usuarios del área de ventas reportan intermitencia en la conexión WiFi. La señal aparece y desaparece constantemente.', 'REDES', 'MEDIA', 'ABIERTO', 2, 1);
+
+INSERT INTO `tickets` (`title`, `description`, `category`, `priority`, `status`, `created_by`, `assigned_to`) VALUES
+('Instalación de software de diseño', 'Se necesita instalar la suite de Adobe Creative Cloud en el equipo nuevo del área de marketing. La licencia ya está disponible.', 'SOFTWARE', 'MEDIA', 'CERRADO', 2, 3);
+
 
 -- Sección 3: Inserción de Mensajes en Tickets
 -- Propósito: Simular la comunicación entre Mesa de Trabajo y el Técnico.
@@ -176,3 +177,6 @@ INSERT INTO `notifications` (`user_id`, `type`, `data`, `is_read`) VALUES
 -- Nota: 'file_path' es una ruta simulada a donde se guardaría el archivo en el servidor.
 INSERT INTO `ticket_attachments` (`ticket_id`, `file_path`, `file_type`, `uploaded_by`) VALUES
 (2, '/uploads/tickets/evidencia_adobe_install_1695494400.jpg', 'image/jpeg', 3); -- El técnico (ID 3) sube una foto como evidencia para el ticket cerrado (ID 2).
+
+
+
