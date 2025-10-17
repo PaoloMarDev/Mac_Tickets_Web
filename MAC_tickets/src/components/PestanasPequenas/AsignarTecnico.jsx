@@ -191,7 +191,7 @@ const VistaDeAsignar = ({ticket, onExit}) =>  {
           {tecnicos.map((tech) => (
             <div key={tech.id} className="assign-list-item">
               <div className="assign-info-block">
-                <p className="assign-tech-name">{tech.email}</p>
+                <p className="assign-tech-name">{tech.username}</p>
                 { /*<p className="assign-tech-stats">Tickets Asignados: {tech.assignedTickets}</p> */}
               </div>
               

@@ -57,8 +57,8 @@ const insertUsers = async (req, res) => {
             return res.status(400).json({ error: "Faltan campos obligatorios, campos: username, email, password, role"});
         }
 
-        const [result] = await pool.query("INSERT INTO users (email, password, role) VALUES (?, SHA2(?, 224), ?)",
-            [email, password, role]
+        const [result] = await pool.query("INSERT INTO users (username, email, password, role) VALUES (?, ?, SHA2(?, 224), ?)",
+            [username ,email, password, role]
         );
         
         res.status(201).json({

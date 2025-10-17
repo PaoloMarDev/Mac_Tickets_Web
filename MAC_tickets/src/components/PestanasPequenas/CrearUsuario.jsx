@@ -15,8 +15,10 @@ const CrearUsuario = ({onExit}) => {
     const from = new FormData(formulario.current);
     const dataToSend = Object.fromEntries(from.entries());
     
-    if(dataToSend.email == '' || dataToSend.password == '' || dataToSend.newPassword == ''){
-        return alert("Faltan información para completar el ticket")
+
+    console.log(dataToSend)
+    if(dataToSend.username == '' || dataToSend.email == '' || dataToSend.password == '' || dataToSend.newPassword == ''){
+        return alert("Faltan información para completar el usuario")
       }
 
     if(dataToSend.password != dataToSend.newPassword){
@@ -34,6 +36,7 @@ const CrearUsuario = ({onExit}) => {
             authorization: `Bearer ${localStorage.getItem('token')}`
           },
           body : JSON.stringify({
+            "username" : dataToSend.username,
             "email" : dataToSend.email,
             "password" : dataToSend.password,
             "role" : dataToSend.role

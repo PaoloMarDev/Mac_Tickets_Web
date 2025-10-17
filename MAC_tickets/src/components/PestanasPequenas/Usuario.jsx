@@ -12,7 +12,7 @@ const Usuario = ({user, onClick}) => {
             <div className="limiter"></div>
             <div className="user-content">
                 <div className="user-left">
-                    <h2 className="username">{user.email}</h2>
+                    <h2 className="username">{user.username}</h2>
                     <span className="role">Rol: {user.role}</span>
                 </div>
                 <div className="user-right">
