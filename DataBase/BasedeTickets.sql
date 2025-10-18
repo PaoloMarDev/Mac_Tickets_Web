@@ -121,6 +121,14 @@ CREATE TABLE IF NOT EXISTS ticket_attachments (
     ON UPDATE CASCADE ON DELETE RESTRICT             -- No se permite eliminar al usuario si ha subido archivos.
 ) ENGINE=InnoDB;
 
+CREATE TABLE file(
+	id INT AUTO_INCREMENT,
+    name VARCHAR(100),
+    size DOUBLE,
+    mimetype VARCHAR(100),
+    data MEDIUMBLOB,
+    PRIMARY KEY(id)
+);
 
 
 -- Aqui es para ingresar valores y veas que guarda si quieres modificar cosas adelante 

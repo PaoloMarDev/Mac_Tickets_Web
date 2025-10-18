@@ -7,18 +7,24 @@ dotenv.config()
 import {router as usuarios} from './routes/usuarios.js'
 import {router as tickets} from './routes/tickets.js'
 import {router as login} from './routes/login.js'
+import {router as archivos} from './routes/archivos.js'
 
 const app = express();
 const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(fileUpload({
+  limits: { fileSize: 5 * 1024 * 1024 },
+  abortOnLimit: true
+}));
 
 
 // Rutas
 app.use('/usuarios', usuarios)
 app.use('/tickets', tickets)
 app.use('/login', login);
+app.use('/archivos', archivos);
 
 
 // Ruta de prueba
