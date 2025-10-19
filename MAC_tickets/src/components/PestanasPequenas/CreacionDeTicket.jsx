@@ -8,7 +8,6 @@ import '../../components_css/CreacionDeTicket.css'
 // Opciones de Prioridad y Categoría
 const priorities = ["ALTA", "MEDIA", "BAJA"];
 const categories = ["REDES", "HARDWARE", "SOFTWARE", "OTRO"];
-const technicians = ["Juan Pérez (99)", "María Gómez (50)", "Carlos Ruiz (25)"]; // variable de prueba xd
 
 function TicketCreationForm({onExit}) {
   const [tecnicos, setTecnicos] = useState([])

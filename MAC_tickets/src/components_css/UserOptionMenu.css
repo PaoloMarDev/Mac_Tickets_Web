@@ -1,33 +1,33 @@
 .UserMenuContent{
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    height: 150px;
+    justify-content: center;
+    height: 200px;
     width: 200px;
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .MenuBotones{
     display: flex;
-    border: solid rgb(191, 191, 191) 1px;
-    padding: 10px;
-    border-radius: 5px;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 10px;
 }
 
 .buttonOption{
     display: flex;
     align-items: center;
-    gap: 15px;
     width: 100%;
     height: 100%;
-    border: none;
+    border: 2px solid gray;
+    border-radius: 5px;
     cursor: pointer;
     background: none;
     transition: box-shadow 0.2s ease-in-out;
+    padding: 10px;
 }
 
-.MenuBotones:hover{
+.buttonOption:hover{
     background-color: rgb(174, 174, 174);
 }
 

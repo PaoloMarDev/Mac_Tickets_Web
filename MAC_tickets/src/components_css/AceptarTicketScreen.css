@@ -26,6 +26,7 @@ body {
 .metadata-row {
   display: flex;
   align-items: center;
+  gap: 10px;
   margin-bottom: 25px;
   padding-bottom: 15px;
   border-bottom: 1px solid #dddddd; /* The subtle separator line */

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import Asig from './AsignarTecnico' // Falta añadir esta funcionalidad
 import EnterTicketScreen from './EnterTicketScreen.jsx'
+import ModificarPrioYCateScreen from './ModificarPrioYCateScreen.jsx'
 
 
 const MenuTicketAdmin = ({ticket, onExit}) => {
@@ -36,24 +37,36 @@ const MenuTicketAdmin = ({ticket, onExit}) => {
                     <button type='button' className='buttonOption' onClick={() => handleOpenModalAsigTec()}>
                         Asignar Técnico
                     </button>
-                </div>
-                <div className="MenuBotones">
-                    <button type='button' className='buttonOption'>
+                    <button type='button' className='buttonOption' onClick={() => alert("Eso aún no tiene funcionalidad")}>
+                        Ingresar al ticket
+                    </button>
+                    <button type='button' className='buttonOption' onClick={() => handleOpenModalEntTick(ticket)}>
                         Editar Ticket
                     </button>
-    
-                    {isModalAsigTec && (
-                        <div className="menueliminar-display" onClick={handleCloseModal}>
-                        <div className="menueliminar-content" onClick={e => e.stopPropagation()}>
-                            <Asig
-                                ticket = {ticket}
-                                onExit = {onExit}
-                            />
-                        </div>
+                </div>
+
+                {isModalAsigTec && (
+                    <div className="menueliminar-display" onClick={handleCloseModal}>
+                    <div className="menueliminar-content" onClick={e => e.stopPropagation()}>
+                        <Asig
+                            ticket = {ticket}
+                            onExit = {onExit}
+                        />
                     </div>
-                    )}
-    
-                </div>            
+                </div>
+                )}
+
+                {selectedTicket && (
+                    <div className="modal-overlay" onClick={handleCloseModal}>
+                    <div className="modal-content" onClick={e => e.stopPropagation()}>
+                        <ModificarPrioYCateScreen 
+                        ticket={selectedTicket} 
+                        onExit={handleCloseModal}
+                        />
+                    </div>
+                    </div>
+                )}
+
             </section>
             </div>
         )}
