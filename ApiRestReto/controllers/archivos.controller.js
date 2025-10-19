@@ -18,4 +18,4 @@ let sampleFile = '';
     });
 }
 
-export default { uploadFiles }
+export { uploadFiles }
