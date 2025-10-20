@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import Ticket from "./Ticket.jsx";
 
 import Mta from './MenuTicketAdmin.jsx'
-
-
+import VistaDeChatTicket from './VistaDeChatTicket.jsx'
 
 
 const AllTicketList = ({setListToUse, getListToUse}) => {
@@ -14,6 +13,7 @@ const AllTicketList = ({setListToUse, getListToUse}) => {
   const [selectedTicket, setSelectedTicket] = useState(null); 
 
   const userid = localStorage.getItem("id"); // Obtenemos el id del usuario que está guardado en el localstorage
+  const role = localStorage.getItem("role"); // Obtenemos el id del usuario que está guardado en el localstorage
 
   useEffect(() => {
     // 1. Resetear estados al iniciar la carga
@@ -101,6 +101,34 @@ const AllTicketList = ({setListToUse, getListToUse}) => {
   }
 
 
+
+// Mostrar la lista y el modal (si está abierto)
+if(role == 'MESA'){
+  return (
+       <div className="ticket-list-container">
+          {tickets.map(ticket => (
+           <Ticket 
+             key={ticket.id} 
+             ticket={ticket} 
+             // Esto asegura que el objeto 'ticket' se pase a handleClick
+             onClick={() => handleClick(ticket)} 
+           />
+         ))}
+  
+         {/* 2. Modal Condicional */}
+         {selectedTicket && (
+           <div className="modal-overlay" onClick={handleCloseModal}>
+             <div className="menu-ticket-admin" onClick={e => e.stopPropagation()}>
+               <VistaDeChatTicket 
+                 ticket={selectedTicket}
+                 onExit={handleCloseModal}
+               />
+             </div>
+           </div>
+         )}
+       </div>
+    );
+  }
 
 // Mostrar la lista y el modal (si está abierto)
   return (

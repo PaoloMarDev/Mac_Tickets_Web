@@ -2,34 +2,35 @@
 import { useEffect, useState } from "react";
 
 import Asig from './AsignarTecnico' // Falta añadir esta funcionalidad
-import EnterTicketScreen from './EnterTicketScreen.jsx'
 import ModificarPrioYCateScreen from './ModificarPrioYCateScreen.jsx'
-
+import VistaDeChatTicket from './VistaDeChatTicket.jsx'
 
 const MenuTicketAdmin = ({ticket, onExit}) => {
 
         const [isModalAsigTec, setisModalAsigTec] = useState(false);
-        const [selectedTicket, setSelectedTicket] = useState(null); 
+        const [isModalEditTicket, setIsModalEditTicket] = useState(false);
+        const [isModalEnterTicket, setIsModalEnterTicket] = useState(false);
 
-
-        const cuentaActual = localStorage.getItem("role"); // Obtenemos el id del usuario que está guardado en el localstorage
-    
-        const handleOpenModalAsigTec = (user) => {
+        const handleOpenModalAsigTec = () => {
             setisModalAsigTec(true);
         };
+
+        const handleOpenModalEnterTick = () => {
+            setIsModalEnterTicket(true)
+        };
         
-        const handleOpenModalEntTick = (ticket) => {
-            setSelectedTicket(ticket);
+        const handleOpenModalEditTick = () => {
+            setIsModalEditTicket(true)
         };
         
         const handleCloseModal = () => {
             setisModalAsigTec(false);
-            setSelectedTicket(null);
+            setIsModalEditTicket(false)
+            setIsModalEnterTicket(false)
         };
 
 
 
-    if(cuentaActual == "ADMIN"){
         return(
             <div>
             <section className="UserMenuContent">
@@ -37,10 +38,10 @@ const MenuTicketAdmin = ({ticket, onExit}) => {
                     <button type='button' className='buttonOption' onClick={() => handleOpenModalAsigTec()}>
                         Asignar Técnico
                     </button>
-                    <button type='button' className='buttonOption' onClick={() => alert("Eso aún no tiene funcionalidad")}>
+                    <button type='button' className='buttonOption' onClick={() => handleOpenModalEnterTick()}>
                         Ingresar al ticket
                     </button>
-                    <button type='button' className='buttonOption' onClick={() => handleOpenModalEntTick(ticket)}>
+                    <button type='button' className='buttonOption' onClick={() => handleOpenModalEditTick()}>
                         Editar Ticket
                     </button>
                 </div>
@@ -56,11 +57,22 @@ const MenuTicketAdmin = ({ticket, onExit}) => {
                 </div>
                 )}
 
-                {selectedTicket && (
+                {isModalEditTicket && (
                     <div className="modal-overlay" onClick={handleCloseModal}>
                     <div className="modal-content" onClick={e => e.stopPropagation()}>
                         <ModificarPrioYCateScreen 
-                        ticket={selectedTicket} 
+                        ticket={ticket} 
+                        onExit={handleCloseModal}
+                        />
+                    </div>
+                    </div>
+                )}
+                
+                {isModalEnterTicket && (
+                    <div className="vista-modal-overlay" onClick={handleCloseModal}>
+                    <div className="vista-modal-content" onClick={e => e.stopPropagation()}>
+                        <VistaDeChatTicket 
+                        ticket={ticket} 
                         onExit={handleCloseModal}
                         />
                     </div>
@@ -70,32 +82,5 @@ const MenuTicketAdmin = ({ticket, onExit}) => {
             </section>
             </div>
         )}
-
-    if(cuentaActual == "MESA"){
-        return(
-            <div>
-            <section className="UserMenuContent">
-                <div className="MenuBotones">
-                    <button type='button' className='buttonOption' onClick={() => handleOpenModalEntTick(ticket)}>
-                        Editar Ticket
-                    </button>
-    
-                    {selectedTicket && (
-                        <div className="modal-overlay" onClick={handleCloseModal}>
-                        <div className="modal-content" onClick={e => e.stopPropagation()}>
-                            <EnterTicketScreen 
-                            ticket={selectedTicket} 
-                            onExit={handleCloseModal}
-                            />
-                        </div>
-                        </div>
-                    )}
-    
-                </div>            
-            </section>
-            </div>
-        )}
-    
-}
 
 export default MenuTicketAdmin

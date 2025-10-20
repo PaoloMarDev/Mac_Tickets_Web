@@ -4,8 +4,7 @@ import LoginForm from './components/PestanasPrincipales/LoginForm.jsx'
 import ProtectedRoute from './components/Otros/ProtectedRoute.jsx'
 import ScreeDisplayer from './components/PestanasPrincipales/ScreenDisplayer.jsx'
 
-
-import CrearTicket from './components/PestanasPequenas/CreacionDeTicket.jsx'
+import VistaDeChatTicket from './components/PestanasPequenas/VistaDeChatTicket.jsx'
 
 function App() {
 

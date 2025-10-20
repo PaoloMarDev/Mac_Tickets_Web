@@ -1,0 +1,284 @@
+/* =========================================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================================= */
+
+.tc-wrap {
+  max-width: 900px;
+  height: 700px; 
+  min-height: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.tc-fixed {
+  flex-shrink: 0;
+}
+
+/* =========================================================================
+   1. CABECERA Y METADATOS
+   ========================================================================= */
+
+.tc-header {
+  display: grid;
+  grid-template-columns: 3fr 1fr; 
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  flex-shrink: 0;
+}
+
+.tc-meta h1 {
+  font-size: 24px;
+  margin: 0 0 5px 0;
+}
+
+.tc-meta p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.tc-details {
+  display: flex;
+  gap: 30px;
+  font-size: 14px;
+  color: #333;
+}
+
+.tc-detail-item {
+  display: flex;
+  align-items: center;
+}
+
+.tc-box {
+  width: 15px;
+  height: 15px;
+  background-color: #dcdcdc;
+  margin-right: 8px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* Dropdown de Estado */
+.tc-state {
+  text-align: right;
+  font-size: 14px;
+}
+
+.tc-state label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  text-align: right;
+}
+
+.tc-select {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  min-width: 120px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+/* =========================================================================
+   2. DESCRIPCIÓN
+   ========================================================================= */
+
+.tc-desc-area {
+  padding: 20px 0;
+  flex-shrink: 0;
+}
+
+.tc-desc-head {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.tc-desc-text {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* =========================================================================
+   3. MESA DE TRABAJO (CHAT SCROLLABLE)
+   ========================================================================= */
+
+.tc-log-cont {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; 
+  overflow: hidden;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin: 10px 0;
+}
+
+.tc-msg-area {
+  flex-grow: 1; 
+  overflow-y: scroll; 
+  padding: 15px 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.tc-entry {
+  margin-bottom: 10px;
+  line-height: 1.4;
+  text-align: left;
+  padding: 5px 0;
+}
+
+.tc-entry.right-aligned {
+  text-align: right; 
+}
+
+/* Separador de firma (Línea + Texto) */
+.tc-sig-div {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.tc-sig-div hr {
+  flex-grow: 1;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+.tc-sig-text {
+  font-size: 12px;
+  color: #999;
+  padding: 0 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* =========================================================================
+   4. BARRA DE INPUT Y ACCIONES DE CHAT
+   ========================================================================= */
+
+.tc-input-bar {
+  padding: 15px 0 10px 0;
+  flex-shrink: 0; 
+}
+
+.tc-input-block {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  overflow: hidden; 
+  background-color: #fff;
+}
+
+.tc-text-input {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.tc-upload-btn, .tc-send-btn {
+  background: none;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  color: #999;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.tc-send-btn {
+  color: #fff; 
+  background-color: #6c757d; 
+}
+
+.tc-label-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  font-size: 12px;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* =========================================================================
+   5. PIE DE PÁGINA Y BOTONES FINALES
+   ========================================================================= */
+
+.tc-foot-acts {
+  display: flex;
+  justify-content: flex-end; 
+  gap: 15px;
+  padding-top: 20px;
+  flex-shrink: 0;
+}
+
+.tc-act-btn {
+  padding: 12px 35px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  background-color: #e0e0e0; 
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tc-act-btn:hover {
+  background-color: #d0d0d0;
+}
+
+.tc-accept-btn {
+}
+
+.tc-accept-btn:hover {
+    color: white;
+    background-color: #318f02;
+}
+
+/* modal */
+
+/* 1. Estilos para el Fondo Oscuro (Overlay) */
+.vista-modal-overlay {
+    position: fixed; /* Fija la posición relativa a la ventana */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Color oscuro semi-transparente */
+    
+    /* Centrado del contenido */
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    
+    /* Asegura que esté por encima de todos los demás elementos */
+    z-index: 1000; 
+}
+
+/* 2. Estilos para el Contenedor del Componente (AceptarTicketScreen) */
+.vista-modal-content {
+    /* El contenido del ticket (AceptarTicketScreen) */
+    background: white; 
+    padding: 20px;
+    border-radius: 8px;
+    /* Ajusta el ancho según lo que necesite tu componente */
+    
+    /* Sombra para darle un aspecto de ventana flotante */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}

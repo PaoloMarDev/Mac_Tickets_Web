@@ -1,8 +1,24 @@
-
+import React, { useEffect, useState } from "react";
 import '../../components_css/EnterTicketScreen.css'
 
-function EnterTicketScreen({ ticket, onExit }) { // Renamed for clarity (Read-Only View)
-  // ... state and props
+import VistaDeChatTicket from './VistaDeChatTicket.jsx'
+
+
+const EnterTicketScreen = ({ ticket, onExit }) => { // Renamed for clarity (Read-Only View)
+  
+  const [selectedTicket, setSelectedTicket] = useState(null); 
+
+
+    const handleOpenEditTIcket = (ticketData) => {
+     // ticketData ahora recibe el objeto del ticket
+     setSelectedTicket(ticketData); 
+     console.log(ticketData)
+    };
+    
+    // Función para cerrar el modal
+    const handleCloseModal = () => {
+     setSelectedTicket(null);
+   };
   
   return (
 <div className="ticket-container">
@@ -36,9 +52,21 @@ function EnterTicketScreen({ ticket, onExit }) { // Renamed for clarity (Read-On
           onExit()
         }}>Salir</button>
         <button className="btn edit-btn" type='button' onClick={() => {
-          alert("Este boton aún no tiene funcionamiento")
+          handleOpenEditTIcket(ticket)
         }}>Editar</button>
       </footer>
+
+        {selectedTicket && (
+          <div className="vista-modal-overlay" onClick={handleCloseModal}>
+            <div className="vista-modal-content" onClick={e => e.stopPropagation()}>
+              <VistaDeChatTicket 
+                ticket={selectedTicket} 
+                onExit={handleCloseModal}
+              />
+            </div>
+          </div>
+        )}
+
     </div>
   );
 }
