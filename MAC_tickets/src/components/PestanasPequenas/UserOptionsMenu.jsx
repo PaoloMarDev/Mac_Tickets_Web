@@ -73,14 +73,13 @@ const UserOptionsMenu = ({user}) => {
                     <img src={recover} alt='Icono para recuperar contraseña'></img>
                     Recupere Contraseña
                 </button>
-            </div>
-            <div className="MenuBotones">
                 <button type='button' className='buttonOption' onClick={() => 
                     handleOpenModalElimination()
                 }>
                     <img src={disable} alt='Icono de Borrar'></img>
                     Eliminar
                 </button>
+            </div>            
 
                 {isModalElimintaionOpen && (
                     <div className="menueliminar-display" onClick={handleCloseModal}>
@@ -107,7 +106,6 @@ const UserOptionsMenu = ({user}) => {
                 </div>
                 )}
 
-            </div>            
         </section>
     )
 }

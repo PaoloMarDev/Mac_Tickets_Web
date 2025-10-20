@@ -9,6 +9,7 @@ export default function TicketList({setListToUse, getListToUse}) {
   const [loadedTickets, setLoadedTickets] = useState(false); // Estado para indicar si la carga ha finalizado (éxito o fallo)
   const [hasError, setHasError] = useState(false); // Estado para manejar si hubo un error en la carga
   const [selectedTicket, setSelectedTicket] = useState(null); 
+  const [seHizoUnCambio, setSeHizoUnCambio] = useState(0); 
 
   const userid = localStorage.getItem("id"); // Obtenemos el id del usuario que está guardado en el localstorage
 
@@ -43,7 +44,7 @@ export default function TicketList({setListToUse, getListToUse}) {
         setHasError(true);
         setLoadedTickets(true); // La carga ha finalizado, aunque con error
       });
-  }, [userid]); // Añadir userid como dependencia por si cambia
+  }, [userid, seHizoUnCambio]); // Añadir userid como dependencia por si cambia
 
   // **Añadir un segundo useEffect para actualizar tickets cuando la lista filtrada cambie**
     // Esto se activa cada vez que el padre (Administrador) llama a setFilteredList a través de setListToUse.
@@ -115,7 +116,7 @@ export default function TicketList({setListToUse, getListToUse}) {
        {selectedTicket && (
          <div className="modal-overlay" onClick={handleCloseModal}>
            <div className="modal-content" onClick={e => e.stopPropagation()}>
-             <EnterTicketScreen 
+             <EnterTicketScreen
                ticket={selectedTicket} 
                onExit={handleCloseModal}
              />

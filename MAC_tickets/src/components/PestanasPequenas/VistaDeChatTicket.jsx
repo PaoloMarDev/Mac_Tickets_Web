@@ -101,9 +101,11 @@ const TicketChatView = ({ticket, onExit}) => {
           "status" : dataToSend.status
         })
       })
+      
       console.log(dataToSend)
-      onExit()
-        } catch {
+      onExit();
+
+        } catch(error) {
           alert("No se pudo modificar la prioridad")
           console.error("No se pudo modificar la prioridad", error)
         }

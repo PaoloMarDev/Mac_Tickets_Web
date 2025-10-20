@@ -7,7 +7,7 @@ const AceptarTicketScreen = ({ ticket, onExit }) =>{
   // Función para aceptar tickets
   const AceptarTicket = async () =>{
     try {
-            const bodyData = { id: ticket.Ticket_ID };
+            const bodyData = { id: ticket.id };
 
             const response = await fetch(`http://localhost:3000/tickets/aceptarTicket`, {
                 method: 'PATCH',
@@ -36,7 +36,7 @@ const AceptarTicketScreen = ({ ticket, onExit }) =>{
   // Función para rechazar tickets
   const RechazarTicket = async () =>{
     try {
-            const bodyData = { id: ticket.Ticket_ID };
+            const bodyData = { id: ticket.id };
 
             const response = await fetch(`http://localhost:3000/tickets/rechazarTicket`, {
                 method: 'PATCH',

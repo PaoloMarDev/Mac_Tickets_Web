@@ -19,7 +19,7 @@ const EnterTicketScreen = ({ ticket, onExit }) => { // Renamed for clarity (Read
     const handleCloseModal = () => {
      setSelectedTicket(null);
    };
-  
+
   return (
 <div className="ticket-container">
       <header className="ticket-header">
@@ -59,7 +59,8 @@ const EnterTicketScreen = ({ ticket, onExit }) => { // Renamed for clarity (Read
         {selectedTicket && (
           <div className="vista-modal-overlay" onClick={handleCloseModal}>
             <div className="vista-modal-content" onClick={e => e.stopPropagation()}>
-              <VistaDeChatTicket 
+              <VistaDeChatTicket
+                
                 ticket={selectedTicket} 
                 onExit={handleCloseModal}
               />

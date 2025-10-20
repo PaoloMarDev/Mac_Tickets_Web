@@ -13,7 +13,7 @@ const getTickets = async (req, res) => {
 // Metodo para conseguir un ticket
 const getTicket = async (req, res) => {
     try{
-        const { id } = req.params;
+        const { id } = req.params ;
         const [rows] = await pool.query('SELECT * FROM tickets WHERE id = ?', [id]);
         if (rows.length === 0){
             return res.status(404).json({ error: 'tickets no encontrado'});      
@@ -96,6 +96,16 @@ const getTicketsNotAcepted = async (req, res) => {
         console.log('Error al obtener tickets por ID', error);
         res.status(500).json({error: 'Error al obtener el tickets' });
     }
+}
+
+
+const getTicketsCerrados = async (req, res) => {
+    try{
+        const [rows] = await pool.query('SELECT * FROM tickets WHERE status = "CERRADO"');
+        res.json(rows);
+    } catch (error) {
+        console.error('Error al obtener tickets:', error);
+        res.status(500).json({ error: 'Error al obtener los tickets de la aplicación'});}
 }
 
 
@@ -226,5 +236,6 @@ export { getTicket,
          rechazarTicket,
          asignarCategoria,
          asignarPrioridad,
-         asignarEstado
+         asignarEstado,
+         getTicketsCerrados
         }

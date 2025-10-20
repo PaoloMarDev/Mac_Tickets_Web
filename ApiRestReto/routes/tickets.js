@@ -13,13 +13,15 @@ import { getTickets,
          rechazarTicket,
          asignarCategoria,
          asignarPrioridad,
-         asignarEstado
+         asignarEstado,
+         getTicketsCerrados
         } from "../controllers/tickets.controller.js"
 
 router.get("/", middleware, getTickets)
-router.get("/:id", middleware, getTicket)
+router.get("/ticketsCerrados", middleware, getTicketsCerrados)
 router.get("/aceptedTickets/:id", middleware, getTicketsAcepted)
 router.get("/nonAceptedTickets/:id", middleware, getTicketsNotAcepted)
+router.get("/:id", middleware, getTicket)
 router.post("/insertar", middleware, insertTicket)
 router.patch("/desabilitar", middleware, disableTicket)
 router.patch("/aceptarTicket", middleware, aceptarTicket)
