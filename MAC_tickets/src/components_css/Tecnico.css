@@ -139,7 +139,6 @@
     padding: 20px;
     border-radius: 8px;
     /* Ajusta el ancho según lo que necesite tu componente */
-    max-width: 600px; 
     
     /* Sombra para darle un aspecto de ventana flotante */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 

@@ -143,17 +143,42 @@ const asignarCategoria = async (req, res) => {
     try{
         const {id, category} = req.body // id del ticket
         if(!id){
-            return res.status(400).json({error : "Falta el id o la categoría"})
+            return res.status(400).json({error : "Falta el id o la estado"})
         }
         if(!category){
-            return res.status(400).json({error : "Falta la categoría"})
+            return res.status(400).json({error : "Falta la estado"})
         }
 
         if(category != "REDES" && category != "SOFTWARE" && category != "HARDWARE" && category != "OTRO"){
-            return res.status(400).json({error : "La categoría no está disponible"})
+            return res.status(400).json({error : "La estado no está disponible"})
         }
 
         await pool.query('UPDATE tickets SET category = ? WHERE id = ?', [category, id]);
+
+        res.status(200).json({
+            exito: "Se logró actualizar la estado"
+        })
+
+    }catch(error){
+        res.status(500).json({ error : "Error al actualizar la estado"})
+    }
+}
+
+const asignarEstado = async (req, res) => {
+    try{
+        const {id, status} = req.body // id del ticket
+        if(!id){
+            return res.status(400).json({error : "Falta el id o la categoría"})
+        }
+        if(!status){
+            return res.status(400).json({error : "Falta el Estado"})
+        }
+
+        if(status != "ABIERTO" && status != "CERRADO" && status != "EN_PROCESO"){
+            return res.status(400).json({error : "La categoría no está disponible"})
+        }
+
+        await pool.query('UPDATE tickets SET status = ? WHERE id = ?', [status, id]);
 
         res.status(200).json({
             exito: "Se logró actualizar la categoría"
@@ -200,5 +225,6 @@ export { getTicket,
          aceptarTicket,
          rechazarTicket,
          asignarCategoria,
-         asignarPrioridad
+         asignarPrioridad,
+         asignarEstado
         }

@@ -12,7 +12,8 @@ import { getTickets,
          aceptarTicket,
          rechazarTicket,
          asignarCategoria,
-         asignarPrioridad
+         asignarPrioridad,
+         asignarEstado
         } from "../controllers/tickets.controller.js"
 
 router.get("/", middleware, getTickets)
@@ -25,6 +26,7 @@ router.patch("/aceptarTicket", middleware, aceptarTicket)
 router.patch("/rechazarTicket", middleware, rechazarTicket)
 router.patch("/asigCategoria", middleware, asignarCategoria)
 router.patch("/asigPrioridad", middleware, asignarPrioridad)
+router.patch("/asigEstado", middleware, asignarEstado)
 
 
 

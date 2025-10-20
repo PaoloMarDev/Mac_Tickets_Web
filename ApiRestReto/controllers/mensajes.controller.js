@@ -62,27 +62,6 @@ const insertMessage = async (req, res) => {
     }
 };
 
-// Eliminar un mensaje específico
-const deleteMessage = async (req, res) => {
-    try {
-        const { id } = req.params;
-        if (!id) {
-            return res.status(400).json({ error: "Falta el id del mensaje" });
-        }
-
-        const [result] = await pool.query('DELETE FROM ticket_messages WHERE id = ?', [id]);
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ error: 'Mensaje no encontrado' });
-        }
-
-        res.status(200).json({ exito: 'Mensaje eliminado correctamente' });
-    } catch (error) {
-        console.error('Error al eliminar mensaje:', error);
-        res.status(500).json({ error: 'Error al eliminar el mensaje' });
-    }
-};
-
 // Obtener los mensajes enviados por un usuario
 const getMessagesByUser = async (req, res) => {
     try {
@@ -107,6 +86,5 @@ export {
     getAllMessages,
     getMessagesByTicket,
     insertMessage,
-    deleteMessage,
     getMessagesByUser
 };
