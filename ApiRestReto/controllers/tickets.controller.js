@@ -75,7 +75,7 @@ const getTicketsAcepted = async (req, res) => {
     try{
         const { id } = req.params;
         const [rows] = await pool.query(
-            'SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = ? and acepted = 1;', [id]);
+            'SELECT t.id, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = ? and acepted = 1;', [id]);
         
         res.json(rows);
         
@@ -89,7 +89,7 @@ const getTicketsAcepted = async (req, res) => {
 const getTicketsNotAcepted = async (req, res) => {
     try{
         const { id } = req.params;
-        const [rows] = await pool.query('SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = ? and acepted = 0;', [id]);
+        const [rows] = await pool.query('SELECT t.id, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = ? and acepted = 0;', [id]);
 
         res.json(rows);
     } catch(error) {

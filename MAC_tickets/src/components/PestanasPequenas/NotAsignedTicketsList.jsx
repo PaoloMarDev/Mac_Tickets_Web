@@ -71,7 +71,7 @@ export default function TicketList() {
        {/* 1. Lista de Tickets: CORRECCIÓN APLICADA AQUÍ */}
         {tickets.map(ticket => (
          <Ticket 
-           key={ticket.Ticket_ID} 
+           key={ticket.id} 
            ticket={ticket} 
            // Esto asegura que el objeto 'ticket' se pase a handleClick
            onClick={() => handleClick(ticket)} 

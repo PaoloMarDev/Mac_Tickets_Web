@@ -194,10 +194,10 @@ const TicketChatView = ({ticket, onExit}) => {
     
         {/* 5. Footer Buttons */}
         <footer className="tc-foot-acts tc-fixed">
-          <button className="tc-act-btn tc-accept-btn" onClick={ModificarEstado}>Aceptar</button>
+          <button className="tc-act-btn tc-accept-btn" onClick={ModificarEstado}>Modificar Estado</button>
           <button className="tc-act-btn tc-cancel-btn" onClick={() => {
             onExit()
-          }}>Cancelar</button>
+          }}>Salir</button>
         </footer>
     </div>
     );
