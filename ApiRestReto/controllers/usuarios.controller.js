@@ -27,6 +27,15 @@ const getUser = async (req, res) => {
     }
 }
 
+const getDisableUsers = async (req, res) => {
+    try{
+        const [rows] = await pool.query('SELECT id, username, email, role, is_active, created_at FROM users WHERE is_active = 0');
+        res.json(rows);
+    } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+        res.status(500).json({ error: 'Error al obtener los usuarios de la aplicación'});}
+}
+
 
 // Metodo desactivar usuario
 const disableUser = async (req, res) => {
@@ -45,6 +54,26 @@ const disableUser = async (req, res) => {
     } catch(error){
         console.error('Error al desactivar usuario', error)
         res.status(500).json({ error: 'Error al desactivar al usuario'});
+    }
+}
+
+// Metodo activar usuario
+const enableUser = async (req, res) => {
+    try{
+        const email = req.body.email
+        if(!email){
+            return res.status(400).json({error : "Falta el email"})
+        }
+
+        await pool.query("UPDATE users SET is_active = TRUE WHERE email = ?", [email]); 
+        
+        res.status(201).json({
+            exito: "Se logró la actualización de activar cuenta"
+        })
+
+    } catch(error){
+        console.error('Error al activar usuario', error)
+        res.status(500).json({ error: 'Error al activar al usuario'});
     }
 }
   
@@ -125,8 +154,10 @@ const asignarTicket = async (req, res) => {
 
 export { getUser, 
          getUsers, 
-         disableUser, 
+         disableUser,
+         enableUser, 
          insertUsers, 
          recoverUser, 
          getTecnicos, 
+         getDisableUsers,
          asignarTicket}

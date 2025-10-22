@@ -17,18 +17,18 @@ import { getTickets,
          getTicketsCerrados
         } from "../controllers/tickets.controller.js"
 
-router.get("/", getTickets)
-router.get("/ticketsCerrados", getTicketsCerrados)
-router.get("/aceptedTickets/:id", getTicketsAcepted)
-router.get("/nonAceptedTickets/:id", getTicketsNotAcepted)
-router.get("/:id", getTicket)
-router.post("/insertar", insertTicket)
-router.patch("/desabilitar", disableTicket)
-router.patch("/aceptarTicket", aceptarTicket)
-router.patch("/rechazarTicket", rechazarTicket)
-router.patch("/asigCategoria", asignarCategoria)
-router.patch("/asigPrioridad", asignarPrioridad)
-router.patch("/asigEstado", asignarEstado)
+router.get("/", middleware, getTickets)
+router.get("/ticketsCerrados", middleware,getTicketsCerrados)
+router.get("/aceptedTickets/:id", middleware,getTicketsAcepted)
+router.get("/nonAceptedTickets/:id", middleware,getTicketsNotAcepted)
+router.get("/:id", middleware,getTicket)
+router.post("/insertar", middleware,insertTicket)
+router.patch("/desabilitar", middleware, disableTicket)
+router.patch("/aceptarTicket", middleware, aceptarTicket)
+router.patch("/rechazarTicket", middleware, rechazarTicket)
+router.patch("/asigCategoria", middleware, asignarCategoria)
+router.patch("/asigPrioridad", middleware, asignarPrioridad)
+router.patch("/asigEstado", middleware, asignarEstado)
 
 
 

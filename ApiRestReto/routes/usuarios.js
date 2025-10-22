@@ -3,16 +3,18 @@ const router = express.Router()
 
 import { middleware } from '../middleware/jwt.middleware.js'
 
-import { getUsers, getUser, disableUser, insertUsers, recoverUser, getTecnicos, asignarTicket} from "../controllers/usuarios.controller.js"
+import { getUsers, getUser, getDisableUsers , disableUser, insertUsers, recoverUser, getTecnicos, asignarTicket, enableUser} from "../controllers/usuarios.controller.js"
 
 
-router.get("/", getUsers)
-router.get("/usuario", getUser)
-router.get("/tecnicos", getTecnicos)
-router.post("/insertar", insertUsers)
-router.patch("/desabilitar", disableUser)
-router.patch("/recuperar", recoverUser)
-router.patch("/asignar", asignarTicket)
+router.get("/", middleware,getUsers)
+router.get("/usuario", middleware,getUser)
+router.get("/usuarioDesactivados", middleware, getDisableUsers)
+router.get("/tecnicos", middleware, getTecnicos)
+router.post("/insertar", middleware, insertUsers)
+router.patch("/desabilitar", middleware, disableUser)
+router.patch("/habilitar", middleware, enableUser)
+router.patch("/recuperar", middleware, recoverUser)
+router.patch("/asignar", middleware, asignarTicket)
 
 
 
