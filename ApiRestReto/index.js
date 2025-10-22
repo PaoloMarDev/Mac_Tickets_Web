@@ -12,7 +12,7 @@ import {router as archivos} from './routes/archivos.js'
 import {router as mensajes} from './routes/mensajes.js'
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -33,7 +33,7 @@ app.use('/mensajes', mensajes);
 // Ruta de prueba
 
 app.get('/', (req, res) => {
-    res.json({ message: 'API de Lugares Turísticos funcionando correctamente' });
+    res.json({ message: 'API de MAC Tickets funcionando correctamente' });
 });
 
 // Manejo de errores

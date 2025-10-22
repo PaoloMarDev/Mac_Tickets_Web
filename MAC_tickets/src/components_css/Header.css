@@ -40,6 +40,7 @@
   width: 100px;
   height: 100px;
   filter: drop-shadow(0 0 0.9rem rgba(0, 0, 0, 0.5));
+  cursor: pointer;
 }
 
 /* 🔹 RESPONSIVE STYLES */

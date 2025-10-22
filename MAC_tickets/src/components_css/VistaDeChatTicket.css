@@ -3,8 +3,9 @@
    ========================================================================= */
 
 .tc-wrap {
+  width: 900px;
   max-width: 900px;
-  height: 700px; 
+  height: 900px; 
   min-height: 600px;
   margin: 40px auto;
   padding: 30px;
@@ -29,7 +30,7 @@
   grid-template-columns: 3fr 1fr; 
   gap: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #d4d4d4;
   flex-shrink: 0;
 }
 
@@ -92,23 +93,50 @@
    2. DESCRIPCIÓN
    ========================================================================= */
 
+
 .tc-desc-area {
-  padding: 20px 0;
+  padding: 20px;
   flex-shrink: 0;
+  background: #fafafa;
+  border-bottom: 1px solid #e0e0e0;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Cuando quieras que se quede fijo y scroleable */
+.tc-desc-area.tc-fixed {
+  max-height: 200px;       /* ajusta según tu layout */
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #aaa #f0f0f0;
+}
+
+.tc-desc-area.tc-fixed::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tc-desc-area.tc-fixed::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.tc-desc-area.tc-fixed::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 10px;
 }
 
 .tc-desc-head {
   font-size: 16px;
-  font-weight: bold;
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .tc-desc-text {
   font-size: 14px;
   color: #444;
-  line-height: 1.5;
-  margin: 0;
+  white-space: pre-wrap;     /* por si vienen saltos de linea en el texto */
+  word-wrap: break-word;     /* evita romper layout con textos largos */
 }
+
 
 /* =========================================================================
    3. MESA DE TRABAJO (CHAT SCROLLABLE)
@@ -119,8 +147,8 @@
   flex-direction: column;
   flex-grow: 1; 
   overflow: hidden;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
+  border-top: 1px solid #d4d4d4;
+  border-bottom: 1px solid #d4d4d4;
   margin: 10px 0;
 }
 

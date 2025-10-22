@@ -47,6 +47,7 @@
 .user-right button{
   display: flex;
   border: none;
+  cursor: pointer;
 }
 
 .user-right img{

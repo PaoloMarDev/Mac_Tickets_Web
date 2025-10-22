@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react'
 
 const priorities = ["---","ALTA", "MEDIA", "BAJA"];
 const categories = ["---", "REDES", "HARDWARE", "SOFTWARE", "OTRO"];
+const roles = ["---", "ADMIN", "MESA", "TECNICO"];
 
 const Administrador = () => {
     //--------------- ESTADOS DE TICKETS Y FILTRADO ---------------//
@@ -16,8 +17,13 @@ const Administrador = () => {
     const [filteredList, setFilteredList] = useState([]); // Lista que se muestra
     const [query, setQuery] = useState('') // Búsqueda por texto
     
-    const [selectedCategory, setSelectedCategory] = useState(''); // Estado para futura categoría
+    const [originalUsersList, setOriginalUsersList] = useState([]); // Lista completa (original)
+    const [filteredUserList, setFilteredUsersList] = useState([]); // Lista que se muestra
+    const [userQuery, setUserQuery] = useState('') // Búsqueda por texto
+    
+    const [selectedCategory, setSelectedCategory] = useState(categories[0]); // Estado para futura categoría
     const [selectedPriority, setSelectedPriority] = useState(priorities[0]); // Estado para prioridad (inicializado a "---")
+    const [selectedRole, setSelectedRole] = useState(roles[0]); // Estado para prioridad (inicializado a "---")
 
 
     // Función que AllTicketList usa para guardar la lista COMPLETA por primera vez
@@ -25,30 +31,47 @@ const Administrador = () => {
         setOriginalList(tickets);
         setFilteredList(tickets); // Al inicio, la lista filtrada es igual a la original
     }
+    
+    const setUserListToUse = (Users) => {
+        setOriginalUsersList(Users);
+        setFilteredUsersList(Users); // Al inicio, la lista filtrada es igual a la original
+    }
 
     // Función que AllTicketList usa para obtener la lista que debe mostrar
     const getListToUse = () => {
         return filteredList;
     }
     
+    // Función que AllTicketList usa para obtener la lista que debe mostrar
+    const getUserListToUse = () => {
+        return filteredUserList;
+    }
+    
+    
+    
+    
     // 1. Manejador de la búsqueda por texto
     const handleChange = (e) => {
-        // Solo actualizamos el query. El filtrado lo hará useEffect
         setQuery(e.target.value.toLowerCase());
     }
+    const handleUserChange = (e) => {
+        setUserQuery(e.target.value.toLowerCase());
+    }
     
-    // 2. Manejador del cambio de prioridad
+
+
     const handleChangePriority = (e) => {
-        // Solo actualizamos la prioridad. El filtrado lo hará useEffect
         setSelectedPriority(e.target.value);
     }
-    
-    // 3. Manejador del cambio de categoria
     const handleChangeCategory = (e) => {
-        // Solo actualizamos la prioridad. El filtrado lo hará useEffect
         setSelectedCategory(e.target.value);
     }
+    const handleRoleUsers = (e) => {
+        setSelectedRole(e.target.value);
+    }
     
+
+
     // Este efecto se ejecuta cada vez que 'query', 'selectedPriority' o 'originalList' cambian
     useEffect(() => {
         let currentList = originalList;
@@ -63,7 +86,7 @@ const Administrador = () => {
         
         // --- 2. Aplicar filtro de Categoria ---
         // Verificamos que la categoría seleccionada no sea el valor por defecto ("---")
-        if (selectedCategory && selectedCategory !== priorities[0]) {
+        if (selectedCategory && selectedCategory !== categories[0]) {
             currentList = currentList.filter((tick) => {
                 return tick["category"] === selectedCategory; // Filtrado por priority
             });
@@ -81,6 +104,31 @@ const Administrador = () => {
         setFilteredList(currentList);
 
     }, [query, selectedPriority, selectedCategory, originalList]); // Dependencias: Se ejecuta con cambios en cualquiera de estos estados
+    
+    // Este efecto se ejecuta cada vez que 'query', 'selectedPriority' o 'originalList' cambian
+    useEffect(() => {
+        let currentUserList = originalUsersList;
+        
+        // --- 1. Aplicar filtro de Prioridad ---
+        // Verificamos que la prioridad seleccionada no sea el valor por defecto ("---")
+        if (selectedRole && selectedRole !== roles[0]) {
+            currentUserList = currentUserList.filter((tick) => {
+                return tick["role"] === selectedRole; // Filtrado por priority
+            });
+        }
+
+        // --- 2. Aplicar filtro de Búsqueda por texto ---
+        // Se aplica sobre la lista resultante del filtro de prioridad
+        if (userQuery) { 
+            currentUserList = currentUserList.filter((tick) => {
+                return tick["username"].toLowerCase().includes(userQuery); // Filtrado por title
+            });
+        }
+        
+        // --- 3. Actualizar la lista que se muestra ---
+        setFilteredUsersList(currentUserList);
+
+    }, [userQuery, selectedRole, originalUsersList]); // Dependencias: Se ejecuta con cambios en cualquiera de estos estados
 
     //-------------------------------------------------------------//
 
@@ -134,12 +182,30 @@ const Administrador = () => {
             </div>
             <div className='vertical-line'></div>
             <div className='ViewSection NewTickets'>
+                <h2>Usuarios</h2>
                 <div className="SectionHeader">
-                    <h2>Usuarios</h2>
+                    <div className='Search'>
+                        <input type="search" placeholder='Buscar...' onChange={handleUserChange} value={userQuery}/>
+                    </div>
+                    <div className="create-select-group">
+                        <label htmlFor="category">Rol</label>
+                        <select 
+                        name="role" 
+                        className="create-styled-select"
+                        onChange={handleRoleUsers}
+                        value={selectedRole}>
+                        {roles.map(c => (
+                            <option className="option" key={c} value={c}>{c}</option>
+                        ))}
+                        </select>
+                    </div>
                 </div>
-                <div className='ListContainer NewTicketsContainer'>
-                    <AllUsersList />
-                </div>
+                        <div className='ListContainer NewTicketsContainer'>
+                            <AllUsersList 
+                            setUserListToUse = {setUserListToUse}
+                            getUserListToUse = {getUserListToUse}
+                            />
+                        </div>  
             </div>
             <div className='vertical-line'></div>
             <div className='ViewSection Notifications'>

@@ -41,6 +41,7 @@
   font-weight: bold;
   font-size: 13px;
   width: 125px;
+  padding-right: 8px;
 }
 
 .ticket-description {
@@ -48,7 +49,7 @@
   font-size: 11px;
 }
 
-.ticket-right {
+.ticket-middle {
   display: flex;
   flex-direction: column;
   font-size: 11px;

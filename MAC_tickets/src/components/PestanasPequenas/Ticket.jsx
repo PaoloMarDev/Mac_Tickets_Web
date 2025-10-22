@@ -1,12 +1,12 @@
 import "../../components_css/Ticket.css";
 
-import dots from '../../assets/dots.png'
-
 const Ticket = ({ ticket, onClick }) => {
+
+  const maxLength = 200;
 
   return (
     <section>
-     <div className="ticket-card" onClick={() => onClick(ticket.Ticket_ID)}>
+     <div className="ticket-card" onClick={() => onClick(ticket.id)}>
       
       <div className="ticket-bar"></div> {/* Barra lateral */}
 
@@ -18,14 +18,17 @@ const Ticket = ({ ticket, onClick }) => {
           <span className="label">{ticket.category}</span>
         </div>
 
-        <div className="ticket-right">
+        <div className="ticket-middle">
           <span className="ticket-description">Descripción</span>
           <span>
-            {ticket.description}
+              {ticket.description.length > maxLength
+                ? ticket.description.substring(0, maxLength) + '...'
+                : ticket.description}
           </span>
-          <div className="ticket-data">
-            <span className="label bold">{ticket.created_at}</span>
-          </div>
+            <span className="label bold">{ticket.created_at.substring(0, 10)}</span>
+        </div>
+        <div className="ticket-right">
+          <h2 className="ticket-description">{ticket.status}</h2>
         </div>
       </div>
     </div>

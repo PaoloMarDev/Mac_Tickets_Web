@@ -5,7 +5,7 @@ const AvisoDeEliminacion = ({onExit, disable}) => {
     return(
         <section className="AvistoContent">
             <h1>¿Estás seguro de esto?</h1>
-            <p>¿Seguro que quieres deshabilitar al usuario? Esta acción no se puede deshacer.</p>
+            <p>¿Seguro que quieres deshabilitar al usuario?</p>
             <div className='Eliminacion Botones'>
                 <button type='button' onClick={() => disable()}>Aceptar</button>
                 <button type='button' onClick={() => onExit()}>Cancelar</button>

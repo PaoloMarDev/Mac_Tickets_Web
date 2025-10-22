@@ -24,11 +24,6 @@ const getMessagesByTicket = async (req, res) => {
         [ticket_id]
         );
 
-
-        if (rows.length === 0) {
-            return res.status(404).json({ error: 'No se encontraron mensajes para este ticket' });
-        }
-
         res.json(rows);
     } catch (error) {
         console.error('Error al obtener mensajes del ticket:', error);

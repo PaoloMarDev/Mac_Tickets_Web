@@ -4,7 +4,7 @@ import Usuario from '../PestanasPequenas/Usuario.jsx'
 import UserOptionsMenu from '../PestanasPequenas/UserOptionsMenu.jsx'
 
 
-const AllUsersList = () => {
+const AllUsersList = ({setUserListToUse, getUserListToUse}) => {
   const [usuarios, setUsuarios] = useState([]); // Estado que guarda todos los tickets obtenidos de la API
   const [loadedUsers, setLoadedUser] = useState(false); // Estado para indicar si la carga ha finalizado (éxito o fallo)
   const [hasError, setHasError] = useState(false); // Estado para manejar si hubo un error en la carga
@@ -33,8 +33,9 @@ const AllUsersList = () => {
       })
       .then(data => {
         // 3. Éxito: Establecer los tickets y marcar como cargado
-        setUsuarios(data);
         setLoadedUser(true);
+        setUserListToUse(data)
+        setUsuarios(getUserListToUse());
       })
       .catch(error => {
         // 4. Fallo: Registrar el error y marcar que hubo un error
@@ -43,6 +44,12 @@ const AllUsersList = () => {
         setLoadedUser(true); // La carga ha finalizado, aunque con error
       });
   }, [userid]); // Añadir userid como dependencia por si cambia
+
+  // **Añadir un segundo useEffect para actualizar tickets cuando la lista filtrada cambie**
+    // Esto se activa cada vez que el padre (Administrador) llama a setFilteredList a través de setListToUse.
+    useEffect(() => {
+      setUsuarios(getUserListToUse());
+    }, [getUserListToUse]);
 
     const handleClick = (userData) => {
      // ticketData ahora recibe el objeto del ticket

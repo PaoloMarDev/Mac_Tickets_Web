@@ -3,8 +3,6 @@ import '../../components_css/Usuario.css'
 
 import dots from '../../assets/dots.png'
 
-
-
 const Usuario = ({user, onClick}) => {
    
     return(
@@ -14,6 +12,7 @@ const Usuario = ({user, onClick}) => {
                 <div className="user-left">
                     <h2 className="username">{user.username}</h2>
                     <span className="role">Rol: {user.role}</span>
+                    <span className="role">Email: {user.email}</span>
                 </div>
                 <div className="user-right">
                     <button> 
