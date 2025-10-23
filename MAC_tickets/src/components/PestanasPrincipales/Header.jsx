@@ -17,7 +17,7 @@ const Header = (title) => {
                 }/>
                 <h1>Mac Computadoras</h1>
             </div>
-            <h2>Vista {title.name}</h2>
+            <h2>Vista {title.name || "Archivados"}</h2>
         </section>
     )
 }

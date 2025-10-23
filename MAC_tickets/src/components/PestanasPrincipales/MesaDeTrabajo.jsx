@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 
 import AllTicketList from '../PestanasPequenas/AllTicketList.jsx'
-
+import ListaNotificaciones from '../PestanasPequenas/ListaNotificaciones.jsx'
 
 import '../../components_css/Tecnico.css'
 
@@ -139,7 +139,7 @@ const MesaDeTrabajo = () => {
                             <h2>Notificaciones</h2>
                         </div>
                         <div className='ListContainer NotificationContainer'>
-                            {/* Aquí iría el componente de notificaiones */}
+                            <ListaNotificaciones />
                         </div>
                     </div>
                     <div className='vertical-line'></div>

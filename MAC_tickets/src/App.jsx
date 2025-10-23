@@ -4,7 +4,7 @@ import LoginForm from './components/PestanasPrincipales/LoginForm.jsx'
 import ProtectedRoute from './components/Otros/ProtectedRoute.jsx'
 import ScreeDisplayer from './components/PestanasPrincipales/ScreenDisplayer.jsx'
 
-import VistaDeChatTicket from './components/PestanasPequenas/VistaDeChatTicket.jsx'
+import ElementosArchivados from './components/PestanasPrincipales/ElementosArchivados.jsx'
 
 function App() {
 
@@ -13,9 +13,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<LoginForm />} />
-            <Route path='/inicio' element={<ProtectedRoute>
-                <ScreeDisplayer />
-              </ProtectedRoute>} />
+          <Route path='/inicio' element={<ProtectedRoute> <ScreeDisplayer /> </ProtectedRoute>} />
+          <Route path='/archivado' element={<ProtectedRoute> <ElementosArchivados /> </ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
   )

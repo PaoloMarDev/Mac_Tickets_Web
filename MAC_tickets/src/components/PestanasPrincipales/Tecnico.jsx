@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import AsignedTicketList from '../PestanasPequenas/AsignedTicketsList.jsx'
 import NotAsignedTicketsList from '../PestanasPequenas/NotAsignedTicketsList.jsx'
+import ListaNotificaciones from '../PestanasPequenas/ListaNotificaciones.jsx'
 
 import '../../components_css/Tecnico.css'
 
@@ -148,7 +149,7 @@ const Tecnico = () => {
                         <h2>Notificaciones</h2>
                     </div>
                     <div className='ListContainer NotificationContainer'>
-                        {/* Aquí iría el componente de lista de Nuevos Tickets */}
+                        <ListaNotificaciones />
                     </div>
                 </div>
                 <div className='vertical-line'></div>

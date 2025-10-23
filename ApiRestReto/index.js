@@ -10,6 +10,7 @@ import {router as tickets} from './routes/tickets.js'
 import {router as login} from './routes/login.js'
 import {router as archivos} from './routes/archivos.js'
 import {router as mensajes} from './routes/mensajes.js'
+import {router as notificaciones} from './routes/notificaciones.js'
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,6 +29,7 @@ app.use('/tickets', tickets)
 app.use('/login', login);
 app.use('/archivos', archivos);
 app.use('/mensajes', mensajes);
+app.use('/notificaciones', notificaciones);
 
 
 // Ruta de prueba

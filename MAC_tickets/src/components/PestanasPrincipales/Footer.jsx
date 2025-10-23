@@ -1,8 +1,13 @@
 import { Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+
+import { useNavigate } from "react-router-dom"
+
 import logoutLogo from '../../assets/logout.png'
 import editIcon from '../../assets/pencil.png'
 import addIcon from '../../assets/plus.png'
+import blackbox from '../../assets/caja-negra.png'
+import home from '../../assets/home.png'
 import Beluga from '../../assets/BelugaMeme.png'
 
 import '../../components_css/Footer.css'
@@ -17,6 +22,7 @@ const Footer = () => {
     const [abrirCrearUsuario, setAbrirCrearUsuario] = useState(false); 
     const [abrirCrearticket, setAbrirCrearTicket] = useState(false); 
 
+    const navigate = useNavigate()
 
     // Funcionamiento de Login
     const logout = () => {
@@ -30,12 +36,25 @@ const Footer = () => {
     // Crear un nuevo Ticket
     // Crear un nuevo usuario
 
+    const handleClickCreateUser = () => {
+     setAbrirCrearUsuario(true); 
+   };
+    
+   const handleClickCreateTicket = () => {
+     setAbrirCrearTicket(true); 
+    };
+    
+    // Función para cerrar el modal
+    const handleCloseModal = () => {
+        setAbrirCrearUsuario(false);
+        setAbrirCrearTicket(false); 
+   };
 
     // ponerle el role a la variable accountRole
     useEffect(() => {
         setAccountRole(localStorage.getItem("role"))  
     }, [])
-
+    
     if (redirect) {
         return <Navigate to='/' />
     }
@@ -53,21 +72,6 @@ const Footer = () => {
     }
 
     
-    const handleClickCreateUser = () => {
-     setAbrirCrearUsuario(true); 
-   };
-    
-   const handleClickCreateTicket = () => {
-     setAbrirCrearTicket(true); 
-    };
-    
-    // Función para cerrar el modal
-    const handleCloseModal = () => {
-        setAbrirCrearUsuario(false);
-        setAbrirCrearTicket(false); 
-   };
-
-
 
     // Distintos Menús dependiendo del role de la cuenta.
  
@@ -77,9 +81,6 @@ const Footer = () => {
             <div className='footerbox'>
                 <button type="button" onClick={logout}>
                     <img src={logoutLogo} alt="Logout Logo" />
-                </button>
-                <button type='button' onClick={sinFuncionamiento}>
-                    <img src={editIcon} alt="Edit Button" />
                 </button>
             </div>
         </section>    
@@ -118,8 +119,14 @@ const Footer = () => {
                 <button type="button" onClick={logout}>
                     <img src={logoutLogo} alt="Logout Logo" />
                 </button>
+                <button type='button' onClick={() => {navigate('/inicio')}}>
+                    <img src={home} alt="Add user Icon" />
+                </button>
                 <button type='button' onClick={handleClickCreateUser}>
                     <img src={addIcon} alt="Add user Icon" />
+                </button>
+                <button type='button' onClick={() => {navigate('/archivado')}}>
+                    <img src={blackbox} alt="Add user Icon" />
                 </button>
             </div>
             

@@ -1,17 +1,18 @@
-import AllTicketList from '../PestanasPequenas/AllTicketList.jsx'
-import AllUsersList from '../PestanasPequenas/AllUsersList.jsx'
-import ListaNotificaciones from '../PestanasPequenas/ListaNotificaciones.jsx'
+
+import AllClosedTicketList from '../PestanasPequenas/AllClosedTicktesList.jsx'
+import AllDesableUserList from '../PestanasPequenas/AllDisableUsers.jsx'
 
 import '../../components_css/Tecnico.css'
 import { useState, useEffect } from 'react'
 
-
+import Footer from './Footer.jsx'
+import Header from './Header.jsx'
 
 const priorities = ["---","ALTA", "MEDIA", "BAJA"];
 const categories = ["---", "REDES", "HARDWARE", "SOFTWARE", "OTRO"];
 const roles = ["---", "ADMIN", "MESA", "TECNICO"];
 
-const Administrador = () => {
+const ElementosArchivados = () => {
     //--------------- ESTADOS DE TICKETS Y FILTRADO ---------------//
     const [originalList, setOriginalList] = useState([]); // Lista completa (original)
     const [filteredList, setFilteredList] = useState([]); // Lista que se muestra
@@ -134,10 +135,12 @@ const Administrador = () => {
 
 
     return(
+        <div>
+            <Header />
         <section className='TechnicalView'>
             <div className='vertical-line'></div>
             <div className='ViewSection AssignedTickets'>
-                <h2>Tickets</h2>
+                <h2>Tickets Desactivados</h2>
                 <div className="SectionHeader">
                     <div className='Search'>
                         <input type="search" placeholder='Buscar...' onChange={handleChange} value={query}/>
@@ -174,7 +177,7 @@ const Administrador = () => {
                     </div>
                 </div>
                 <div className='ListContainer TicketContainer'>
-                    <AllTicketList 
+                    <AllClosedTicketList 
                     setListToUse = {setListToUse}
                     getListToUse = {getListToUse}
                     />
@@ -182,7 +185,7 @@ const Administrador = () => {
             </div>
             <div className='vertical-line'></div>
             <div className='ViewSection NewTickets'>
-                <h2>Usuarios</h2>
+                <h2>Usuarios Desactivados</h2>
                 <div className="SectionHeader">
                     <div className='Search'>
                         <input type="search" placeholder='Buscar...' onChange={handleUserChange} value={userQuery}/>
@@ -201,24 +204,17 @@ const Administrador = () => {
                     </div>
                 </div>
                         <div className='ListContainer NewTicketsContainer'>
-                            <AllUsersList 
+                            <AllDesableUserList 
                             setUserListToUse = {setUserListToUse}
                             getUserListToUse = {getUserListToUse}
                             />
                         </div>  
             </div>
             <div className='vertical-line'></div>
-            <div className='ViewSection Notifications'>
-                <div className="SectionHeader">
-                    <h2>Notificaciones</h2>
-                </div>
-                <div className='ListContainer NotificationContainer'>
-                    <ListaNotificaciones />
-                </div>
-            </div>
-            <div className='vertical-line'></div>
         </section>
+            <Footer />
+        </div>
     )
 }
 
-export default Administrador
+export default ElementosArchivados;

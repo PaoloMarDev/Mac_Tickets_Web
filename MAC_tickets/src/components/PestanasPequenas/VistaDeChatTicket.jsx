@@ -357,7 +357,7 @@ const TicketChatView = ({ticket, onExit}) => {
                     className="tc-text-input" 
                     />
                   </form>
-                <button type="submit" className="tc-send-btn" onClick={SubirComentario}>
+                <button type='button' className="tc-send-btn" onClick={SubirComentario}>
                     <span className="tc-icon">➤</span> 
                 </button>
             </div>
