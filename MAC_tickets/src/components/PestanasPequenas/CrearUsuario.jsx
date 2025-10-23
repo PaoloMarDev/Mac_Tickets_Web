@@ -23,10 +23,8 @@ const CrearUsuario = ({onExit}) => {
 
     if(dataToSend.password != dataToSend.newPassword){
       return alert("Las contraseñas no son iguales :C")
-    }
-
+    }  
     
-
       try{
 
         await fetch('http://localhost:3000/usuarios/insertar',{
