@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP -- Fecha y hora de creación del registro de usuario.
 ) ENGINE=InnoDB;
 
-
 -- Sección 3: Creación de la tabla `tickets`
 -- Propósito: Almacena todos los tickets de servicio creados en el sistema.
 -- Es el corazón de la aplicación, conteniendo toda la información sobre cada caso.
@@ -77,8 +76,6 @@ CREATE TABLE IF NOT EXISTS ticket_messages (
   INDEX idx_msgs_ticket (ticket_id),                -- Índice para buscar rápidamente los mensajes de un ticket.
   INDEX idx_msgs_sender (sender_user_id)            -- Índice para encontrar mensajes enviados por un usuario.
 ) ENGINE=InnoDB;
-
----
 
 -- Sección 5: Creación de la tabla `notifications`
 -- Propósito: Almacena las notificaciones para los usuarios.
@@ -186,5 +183,149 @@ INSERT INTO `notifications` (`user_id`, `type`, `data`, `is_read`) VALUES
 INSERT INTO `ticket_attachments` (`ticket_id`, `file_path`, `file_type`, `uploaded_by`) VALUES
 (2, '/uploads/tickets/evidencia_adobe_install_1695494400.jpg', 'image/jpeg', 3); -- El técnico (ID 3) sube una foto como evidencia para el ticket cerrado (ID 2).
 
+-- Coso trigger para las notificaciones
+
+DELIMITER $$
+
+CREATE TRIGGER trg_after_ticket_insert
+AFTER INSERT ON tickets
+FOR EACH ROW
+BEGIN
+    DECLARE recipient_id BIGINT UNSIGNED;
+
+    -- Si el ticket fue asignado, la notificación será para el técnico asignado
+    IF NEW.assigned_to IS NOT NULL THEN
+        SET recipient_id = NEW.assigned_to;
+    ELSE
+        -- Si no hay técnico asignado, la notificación será para el creador
+        SET recipient_id = NEW.created_by;
+    END IF;
+
+    -- Inserta una notificación del tipo TICKET_CREATED
+    INSERT INTO notifications (user_id, type, data, is_read, created_at)
+    VALUES (
+        recipient_id,
+        'TICKET_CREATED',
+        JSON_OBJECT(
+            'ticket_id', NEW.id,
+            'title', NEW.title,
+            'priority', NEW.priority,
+            'status', NEW.status,
+            'created_by', NEW.created_by,
+            'assigned_to', NEW.assigned_to
+        ),
+        0,
+        NOW()
+    );
+END$$
+
+DELIMITER ;
 
 
+
+
+
+DELIMITER $$
+
+CREATE TRIGGER trg_after_message_insert
+AFTER INSERT ON ticket_messages
+FOR EACH ROW
+BEGIN
+    DECLARE recipient_id BIGINT UNSIGNED;
+
+    -- Buscar los datos del ticket relacionado
+    DECLARE ticket_creator BIGINT UNSIGNED;
+    DECLARE ticket_assigned BIGINT UNSIGNED;
+
+    SELECT created_by, assigned_to
+    INTO ticket_creator, ticket_assigned
+    FROM tickets
+    WHERE id = NEW.ticket_id;
+
+    -- Determinar quién debe recibir la notificación:
+    -- Si el mensaje lo envió el creador, se notifica al técnico asignado
+    -- Si lo envió el técnico, se notifica al creador
+    IF NEW.sender_user_id = ticket_creator THEN
+        SET recipient_id = ticket_assigned;
+    ELSE
+        SET recipient_id = ticket_creator;
+    END IF;
+
+    -- Solo insertar si hay destinatario válido (por ejemplo, el ticket aún asignado)
+    IF recipient_id IS NOT NULL THEN
+        INSERT INTO notifications (user_id, type, data, is_read, created_at)
+        VALUES (
+            recipient_id,
+            'NEW_MESSAGE',
+            JSON_OBJECT(
+                'ticket_id', NEW.ticket_id,
+                'message_id', NEW.id,
+                'sender_user_id', NEW.sender_user_id,
+                'message', 'Se agregó un nuevo mensaje en tu ticket'
+            ),
+            0,
+            NOW()
+        );
+    END IF;
+END$$
+
+DELIMITER ;
+
+ALTER TABLE ticket_messages
+ADD COLUMN file_id INT NULL,
+ADD CONSTRAINT fk_msgs_file
+  FOREIGN KEY (file_id)
+  REFERENCES file(id)
+  ON UPDATE CASCADE
+  ON DELETE SET NULL;
+
+ALTER TABLE file
+ADD COLUMN ticket_id BIGINT UNSIGNED NULL,
+ADD COLUMN sender_user_id BIGINT UNSIGNED NULL,
+ADD CONSTRAINT fk_file_ticket
+  FOREIGN KEY (ticket_id) REFERENCES tickets(id)
+  ON UPDATE CASCADE ON DELETE SET NULL,
+ADD CONSTRAINT fk_file_sender
+  FOREIGN KEY (sender_user_id) REFERENCES users(id)
+  ON UPDATE CASCADE ON DELETE SET NULL;
+  
+  DELIMITER $$
+
+CREATE TRIGGER after_file_insert
+AFTER INSERT ON file
+FOR EACH ROW
+BEGIN
+  -- Solo crear mensaje si el archivo tiene ticket_id y sender_user_id
+  IF NEW.ticket_id IS NOT NULL AND NEW.sender_user_id IS NOT NULL THEN
+    INSERT INTO ticket_messages (ticket_id, sender_user_id, body, file_id)
+    VALUES (
+      NEW.ticket_id,
+      NEW.sender_user_id,
+      CONCAT('Se adjuntó el archivo: ', NEW.name),
+      NEW.id
+    );
+  END IF;
+END$$
+
+DELIMITER ;
+
+
+
+--SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = 3 and acepted = 1;
+--SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = 3 and acepted = 0;
+--SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = 3;
+--
+--UPDATE users SET is_active = 1 WHERE id = 4;
+--
+--SELECT * FROM users;
+--SELECT * FROM tickets;
+--SELECT * FROM notifications;
+--SELECT * FROM files;
+--
+--SELECT id, role, is_active, created_at FROM users WHERE is_active = 1 AND role = "TECNICO";
+--
+--UPDATE tickets SET category = "REDES" WHERE id = 4;
+--SELECT * FROM tickets;
+--SELECT * FROM tickets WHERE status = "CERRADO";
+--
+--SELECT * FROM ticket_messages;

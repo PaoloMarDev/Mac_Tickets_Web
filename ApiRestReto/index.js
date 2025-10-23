@@ -9,7 +9,7 @@ import {router as usuarios} from './routes/usuarios.js'
 import {router as tickets} from './routes/tickets.js'
 import {router as login} from './routes/login.js'
 import {router as archivos} from './routes/archivos.js'
-import {router as mensajes} from './routes/mensajes.js'
+import {router as ticketMessages } from './routes/ticketsMessages.js';
 import {router as notificaciones} from './routes/notificaciones.js'
 
 const app = express();
@@ -28,7 +28,7 @@ app.use('/usuarios', usuarios)
 app.use('/tickets', tickets)
 app.use('/login', login);
 app.use('/archivos', archivos);
-app.use('/mensajes', mensajes);
+app.use('/ticketMessages', ticketMessages);
 app.use('/notificaciones', notificaciones);
 
 

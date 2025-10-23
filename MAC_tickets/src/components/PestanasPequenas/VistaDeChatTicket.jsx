@@ -20,13 +20,11 @@ const TicketChatView = ({ticket, onExit}) => {
     const estado_ticket = ticket.status;
 
 
-
-
     useEffect(() => {
           setLoadingTickets(false);
           setErrorTickets(false);
 
-        fetch(`http://localhost:3000/mensajes/byTicket/${ticket.id}`,{
+        fetch(`http://localhost:3000/ticketMessages/byTicket/${ticket.id}`,{
             method: 'GET',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`
@@ -65,7 +63,7 @@ const TicketChatView = ({ticket, onExit}) => {
       }
 
       try{
-      await fetch('http://localhost:3000/mensajes/insertar',{
+      await fetch('http://localhost:3000/ticketMessages/insertar',{
         method: "POST",
         headers: {
           'Content-Type' : 'application/json',
@@ -122,35 +120,37 @@ const TicketChatView = ({ticket, onExit}) => {
         }
     }
 
+    const fileInputRef = useRef(null);
 
+    const handleUploadClick = () => {
+      fileInputRef.current.click();
+    };
 
-  const UploadButton = () => {
-  const fileInputRef = useRef(null);
+    const handleFileChange = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
 
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("ticket_id", ticket.id);
+  formData.append("sender_user_id", localStorage.getItem("id"));
 
-    const formData = new FormData();
-    formData.append("file", file); // <-- nombre "file" debe coincidir con req.files.file
+  try {
+    await fetch("http://localhost:3000/archivos/upload", {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      body: formData
+    });
 
-    try {
-      const res = await fetch("http://localhost:3000/upload", {
-        method: "POST",
-        body: formData
-      });
+    setMensajeNuevo(mensajeNuevo + 1)
+    alert("Archivo subido!");
+  } catch (err) {
+    console.error("Error subiendo archivo", err);
+  }
+};
 
-      const data = await res.json();
-      console.log("Archivo subido:", data);
-
-    } catch (err) {
-      console.error("Error subiendo archivo", err);
-    }
-  };
-
-  const handleClick = () => {
-    fileInputRef.current.click();
-  };
 
 
     // ----- Renderizado del componente opciones ------ //
@@ -453,14 +453,27 @@ const TicketChatView = ({ticket, onExit}) => {
         <div className="tc-log-cont">
             <div className="tc-msg-area">
                 {mensajes.map((mensaje) => (
-                    <div key={mensaje.id} className="tc-msg-item">
+                  <div key={mensaje.id} className="tc-msg-item">
                     <br />
                     <strong className="tc-msg-user">{mensaje.sender_name}</strong>
                     <br />
-                    <div className="tc-msg-text">{mensaje.body}</div>
-                    <br />
-                    <br />
+                    <div className="tc-msg-text">
+                      {mensaje.body}
+
+                      {mensaje.file_id && (
+                        <a
+                          href={`http://localhost:3000/archivos/download/${mensaje.file_id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ display: "block", marginTop: "5px", textDecoration: "underline", cursor: "pointer" }}
+                        >
+                          - Descargar archivo
+                        </a>
+                      )}
                     </div>
+                    <br />
+                    <br />
+                  </div>
                 ))}
             </div>
         </div>
@@ -469,10 +482,23 @@ const TicketChatView = ({ticket, onExit}) => {
         <div className="tc-input-bar tc-fixed">
             {estado_ticket != 'CERRADO' && (
             <div className="tc-input-block">
-                <button className="tc-upload-btn">
-                    {/* Upload Icon */}
+                {/* ✅ BOTÓN QUE ABRE EL SELECTOR DE ARCHIVO */}
+                  <button 
+                    className="tc-upload-btn"
+                    onClick={handleUploadClick}
+                    type="button"
+                  >
                     <span className="tc-icon">⇧</span>
-                </button>
+                  </button>
+
+                  {/* ✅ INPUT FILE OCULTO */}
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    style={{ display: "none" }}
+                    accept="image/*,application/pdf"
+                    onChange={handleFileChange}
+                  />
 
                   <form ref={formulario} onSubmit={SubirComentario}>
                 <input 
@@ -482,7 +508,7 @@ const TicketChatView = ({ticket, onExit}) => {
                     className="tc-text-input" 
                     />
                   </form>
-                <button type="submit" className="tc-send-btn">
+                <button type="submit" className="tc-send-btn" onClick={SubirComentario}>
                     <span className="tc-icon">➤</span> 
                 </button>
             </div>
@@ -498,7 +524,6 @@ const TicketChatView = ({ticket, onExit}) => {
         </footer>
     </div>
     );
-}
 }
 
 export default TicketChatView;

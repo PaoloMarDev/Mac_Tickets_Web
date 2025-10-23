@@ -1,12 +1,17 @@
-import express from 'express'
-const router = express.Router()
-
-import { uploadFiles } from "../controllers/archivos.controller.js"
-
-router.get("/upload", uploadFiles)
+import express from "express";
+import fileUpload from "express-fileupload";
+import { uploadFile, downloadFile } from "../controllers/archivos.controller.js";
 
 
+const router = express.Router();
 
 
 
-export { router }
+//  Subir archivo
+router.post("/upload", uploadFile);
+
+//  Descargar archivo
+router.get("/download/:id", downloadFile);
+
+export { router }; 
+
