@@ -74,9 +74,49 @@ const insertTicket = async (req, res) => {
 const getTicketsAcepted = async (req, res) => {
     try{
         const { id } = req.params;
-        const [rows] = await pool.query(
-            'SELECT t.id, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = ? and acepted = 1;', [id]);
+
+        // CAMBIO
+        // 1. Obtener los parámetros de filtro de la query string
+        const { category, priority, sort_date } = req.query; 
+
+        let sqlQuery = 'SELECT t.id, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id';
         
+        // Condiciones WHERE base (tecnico_id y aceptado)
+        let whereClauses = ['u.id = ?', 'acepted = 1'];
+        let queryParams = [id]; 
+
+        // 2. Añadir filtro por Categoría
+        if (category && category.toUpperCase() !== 'TODOS') {
+            whereClauses.push('t.category = ?');
+            queryParams.push(category);
+        }
+
+        // 3. Añadir filtro por Prioridad
+        if (priority && priority.toUpperCase() !== 'TODOS') {
+            whereClauses.push('t.priority = ?');
+            queryParams.push(priority);
+        }
+
+        // 4. Unir todas las cláusulas WHERE y añadirlas a la consulta
+        if (whereClauses.length > 0) {
+            // Note: The spaces around ' AND ' are crucial, but join() usually handles that.
+            sqlQuery += ' WHERE ' + whereClauses.join(' AND '); 
+        }
+        
+        // 5. Añadir la cláusula ORDER BY
+        const sortOrder = (sort_date && (sort_date.toUpperCase() === 'ASC' || sort_date.toUpperCase() === 'DESC'))
+                          ? sort_date.toUpperCase() 
+                          : 'DESC'; 
+        
+        sqlQuery += ` ORDER BY t.created_at ${sortOrder}`;
+
+        console.log('Final SQL Query:', sqlQuery);
+        console.log('Query Parameters:', queryParams);
+
+        // FIN DE CAMBIOS
+
+        const [rows] = await pool.query(sqlQuery, queryParams); // Cambio en estos parametros
+            //'SELECT t.id, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = ? and acepted = 1;', [id]);
         res.json(rows);
         
     } catch(error) {
