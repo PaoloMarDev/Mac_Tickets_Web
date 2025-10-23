@@ -10,7 +10,7 @@ const Notificacion = ({notificacion}) => {
             <div className="limiter"></div>
             <div className="user-content">
                 <div className="user-left">
-                    <h2 className="username">¡Nuevo Ticket Creado!</h2>
+                    <h2 className="username">¡Nuevo Ticket!</h2>
                     <span className="role">{notificacion.data.title}</span>
                 </div>
                 <div className="user-right">
@@ -30,7 +30,7 @@ const Notificacion = ({notificacion}) => {
             <div className="user-content">
                 <div className="user-left">
                     <h2 className="username">¡Nuevo Mensaje!</h2>
-                    <span className="role">Mensaje: {notificacion.data.message}</span>
+                    <span className="role">{notificacion.data.message}</span>
                 </div>
                 <div className="user-right">
 

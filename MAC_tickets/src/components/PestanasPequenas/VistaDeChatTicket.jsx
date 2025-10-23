@@ -19,6 +19,9 @@ const TicketChatView = ({ticket, onExit}) => {
 
     const estado_ticket = ticket.status;
 
+
+
+
     useEffect(() => {
           setLoadingTickets(false);
           setErrorTickets(false);
@@ -118,6 +121,37 @@ const TicketChatView = ({ticket, onExit}) => {
           console.error("No se pudo modificar la prioridad", error)
         }
     }
+
+
+
+  const UploadButton = () => {
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file); // <-- nombre "file" debe coincidir con req.files.file
+
+    try {
+      const res = await fetch("http://localhost:3000/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+      console.log("Archivo subido:", data);
+
+    } catch (err) {
+      console.error("Error subiendo archivo", err);
+    }
+  };
+
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
+
 
     // ----- Renderizado del componente opciones ------ //
 
@@ -464,6 +498,7 @@ const TicketChatView = ({ticket, onExit}) => {
         </footer>
     </div>
     );
+}
 }
 
 export default TicketChatView;
