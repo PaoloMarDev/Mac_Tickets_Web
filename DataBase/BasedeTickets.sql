@@ -311,21 +311,21 @@ DELIMITER ;
 
 
 
---SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = 3 and acepted = 1;
---SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = 3 and acepted = 0;
---SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = 3;
---
---UPDATE users SET is_active = 1 WHERE id = 4;
---
---SELECT * FROM users;
---SELECT * FROM tickets;
---SELECT * FROM notifications;
---SELECT * FROM files;
---
---SELECT id, role, is_active, created_at FROM users WHERE is_active = 1 AND role = "TECNICO";
---
---UPDATE tickets SET category = "REDES" WHERE id = 4;
---SELECT * FROM tickets;
---SELECT * FROM tickets WHERE status = "CERRADO";
---
---SELECT * FROM ticket_messages;
+-- SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = 3 and acepted = 1;
+-- SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = 3 and acepted = 0;
+-- SELECT t.id as Ticket_ID, title, description, category, priority, status, acepted, t.created_at FROM tickets t JOIN users u ON t.assigned_to = u.id WHERE u.id = 3;
+-- 
+-- UPDATE users SET is_active = 1 WHERE id = 4;
+-- 
+-- SELECT * FROM users;
+-- SELECT * FROM tickets;
+-- SELECT * FROM notifications;
+-- SELECT * FROM files;
+-- 
+-- SELECT id, role, is_active, created_at FROM users WHERE is_active = 1 AND role = "TECNICO";
+-- 
+-- UPDATE tickets SET category = "REDES" WHERE id = 4;
+-- SELECT * FROM tickets;
+-- SELECT * FROM tickets WHERE status = "CERRADO";
+-- 
+-- SELECT * FROM ticket_messages;

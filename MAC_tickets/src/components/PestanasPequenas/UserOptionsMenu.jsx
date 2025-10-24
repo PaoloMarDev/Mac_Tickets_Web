@@ -49,7 +49,7 @@ const UserOptionsMenu = ({user}) => {
         
         const bodyData = { email: user.email };
         
-        const response = await fetch(`http://localhost:3000/usuarios/desabilitar`,{
+        const response = await fetch(`http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/usuarios/desabilitar`,{
             method: 'PATCH',
             headers: {
                 'Content-Type' : 'application/json',

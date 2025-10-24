@@ -25,7 +25,7 @@ const formulario = useRef(null)
      
      // 2. Realizar la petición fetch
      try {
-         const response = await fetch('http://localhost:3000/login', {
+         const response = await fetch('http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/login', {
              method: "POST",
              // IMPORTANTE: Especificar Content-Type y convertir el cuerpo a JSON
              headers: {

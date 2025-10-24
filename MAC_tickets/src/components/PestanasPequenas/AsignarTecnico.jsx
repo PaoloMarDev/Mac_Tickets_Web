@@ -21,7 +21,7 @@ const VistaDeAsignar = ({ticket, onExit}) =>  {
 
         try{
 
-        await fetch('http://localhost:3000/usuarios/asignar',{
+        await fetch('http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/usuarios/asignar',{
           method: "PATCH",
           headers: {
             'Content-Type' : 'application/json',
@@ -49,7 +49,7 @@ const VistaDeAsignar = ({ticket, onExit}) =>  {
      setHasError(false);
      
      // 2. Usar la cadena de promesas de fetch para manejar errores
-     fetch(`http://localhost:3000/usuarios/tecnicos`, {
+     fetch(`http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/usuarios/tecnicos`, {
        method: 'GET',
          headers: {
            authorization: `Bearer ${localStorage.getItem('token')}`

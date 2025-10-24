@@ -21,7 +21,7 @@ const AllTicketList = ({setListToUse, getListToUse}) => {
     setHasError(false);
 
     // 2. Usar la cadena de promesas de fetch para manejar errores
-    fetch(`http://localhost:3000/tickets`, {
+    fetch(`http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/tickets`, {
         method: 'GET',
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`

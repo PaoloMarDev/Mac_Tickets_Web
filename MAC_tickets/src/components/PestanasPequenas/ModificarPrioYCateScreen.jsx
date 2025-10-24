@@ -19,7 +19,7 @@ function ModificarPrioYCateScreen({ ticket, onExit }) { // Renamed for clarity (
     const dataToSend = Object.fromEntries(from.entries());
     
     try{
-      await fetch('http://localhost:3000/tickets/asigCategoria',{
+      await fetch('http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/tickets/asigCategoria',{
         method: "PATCH",
         headers: {
           'Content-Type' : 'application/json',
@@ -31,7 +31,7 @@ function ModificarPrioYCateScreen({ ticket, onExit }) { // Renamed for clarity (
         })
       })
 
-      await fetch('http://localhost:3000/tickets/asigPrioridad',{
+      await fetch('http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/tickets/asigPrioridad',{
         method: "PATCH",
         headers: {
           'Content-Type' : 'application/json',

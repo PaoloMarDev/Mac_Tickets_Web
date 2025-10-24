@@ -9,7 +9,7 @@ const AceptarTicketScreen = ({ ticket, onExit }) =>{
     try {
             const bodyData = { id: ticket.id };
 
-            const response = await fetch(`http://localhost:3000/tickets/aceptarTicket`, {
+            const response = await fetch(`http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/tickets/aceptarTicket`, {
                 method: 'PATCH',
                 headers: {
                  'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const AceptarTicketScreen = ({ ticket, onExit }) =>{
     try {
             const bodyData = { id: ticket.id };
 
-            const response = await fetch(`http://localhost:3000/tickets/rechazarTicket`, {
+            const response = await fetch(`http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/tickets/rechazarTicket`, {
                 method: 'PATCH',
                 headers: {
                   'Content-Type': 'application/json',

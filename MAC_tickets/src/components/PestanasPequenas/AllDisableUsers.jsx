@@ -18,7 +18,7 @@ const AllDisableUsersList = ({setUserListToUse, getUserListToUse}) => {
     setHasError(false);
 
     // 2. Usar la cadena de promesas de fetch para manejar errores
-    fetch(`http://localhost:3000/usuarios/usuarioDesactivados`, {
+    fetch(`http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/usuarios/usuarioDesactivados`, {
         method: 'GET',
         headers: {
           authorization: `Bearer ${localStorage.getItem('token')}`

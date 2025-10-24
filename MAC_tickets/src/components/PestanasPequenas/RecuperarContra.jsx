@@ -24,7 +24,7 @@ const RecuperarContrasena = ({user, onExit}) => {
                            password : dataToSend.password
          };
         
-        const response = await fetch(`http://localhost:3000/usuarios/recuperar`,{
+        const response = await fetch(`http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/usuarios/recuperar`,{
             method: 'PATCH',
             headers: {
                 'Content-Type' : 'application/json',

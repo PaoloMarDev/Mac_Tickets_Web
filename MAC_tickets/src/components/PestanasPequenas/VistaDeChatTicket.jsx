@@ -24,7 +24,7 @@ const TicketChatView = ({ticket, onExit}) => {
           setLoadingTickets(false);
           setErrorTickets(false);
 
-        fetch(`http://localhost:3000/ticketMessages/byTicket/${ticket.id}`,{
+        fetch(`http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/ticketMessages/byTicket/${ticket.id}`,{
             method: 'GET',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`
@@ -63,7 +63,7 @@ const TicketChatView = ({ticket, onExit}) => {
       }
 
       try{
-      await fetch('http://localhost:3000/ticketMessages/insertar',{
+      await fetch('http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/ticketMessages/insertar',{
         method: "POST",
         headers: {
           'Content-Type' : 'application/json',
@@ -99,7 +99,7 @@ const TicketChatView = ({ticket, onExit}) => {
       }
 
       try{
-      await fetch('http://localhost:3000/tickets/asigEstado',{
+      await fetch('http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/tickets/asigEstado',{
         method: "PATCH",
         headers: {
           'Content-Type' : 'application/json',
@@ -136,7 +136,7 @@ const TicketChatView = ({ticket, onExit}) => {
   formData.append("sender_user_id", localStorage.getItem("id"));
 
   try {
-    await fetch("http://localhost:3000/archivos/upload", {
+    await fetch("http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/archivos/upload", {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem('token')}`
