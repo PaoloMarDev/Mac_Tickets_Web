@@ -17,7 +17,7 @@ export default function TicketList() {
      setLoadedTickets(false);
      setHasError(false);
 
-       fetch(`http://localhost:3000/tickets/nonAceptedTickets/${userid}`, {
+       fetch(`http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/tickets/nonAceptedTickets/${userid}`, {
           method: 'GET',
           headers: {
             authorization: `Bearer ${localStorage.getItem('token')}`
