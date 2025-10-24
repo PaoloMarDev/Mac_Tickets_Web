@@ -462,7 +462,7 @@ const TicketChatView = ({ticket, onExit}) => {
 
                       {mensaje.file_id && (
                         <a
-                          href={`http://localhost:3000/archivos/download/${mensaje.file_id}`}
+                          href={`http://Api-tickets-env.eba-3z343hb2.us-east-1.elasticbeanstalk.com/archivos/download/${mensaje.file_id}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{ display: "block", marginTop: "5px", textDecoration: "underline", cursor: "pointer" }}
